@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>2026 PTO & Boating Planner</title>
+  <title>2026 PTO & Boating Planner (Readable)</title>
   <style>
     :root {
-      --bg: #0b1220;
+      --bg: #020617;
       --bg-alt: #020617;
       --card: #020617;
       --accent: #38bdf8;
-      --accent-soft: rgba(56,189,248,0.14);
-      --accent-strong: rgba(56,189,248,0.35);
+      --accent-soft: rgba(56,189,248,0.12);
+      --accent-strong: rgba(56,189,248,0.3);
       --text: #e5e7eb;
       --muted: #9ca3af;
       --danger: #f97373;
@@ -19,20 +19,16 @@
       --border: #1f2937;
       --booked: #0ea5e9;
       --suggested: #fbbf24;
-      --grid-line: #111827;
-      --today: #22c55e;
       --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
               "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       padding: 1.5rem;
-      background: radial-gradient(circle at top, #1e293b 0, #020617 52%, #000 100%);
+      background: radial-gradient(circle at top, #020617 0, #020617 52%, #000 100%);
       color: var(--text);
       font-family: var(--font);
     }
@@ -43,36 +39,29 @@
       letter-spacing: 0.02em;
     }
 
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 0.4rem;
-    }
+    h1 { font-size: 1.6rem; margin-bottom: 0.4rem; }
 
-    p {
-      margin: 0.15rem 0;
-    }
+    p { margin: 0.2rem 0; }
 
     .app-shell {
       max-width: 1320px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 4fr) minmax(260px, 1.5fr);
+      grid-template-columns: minmax(0, 2.3fr) minmax(320px, 1.7fr);
       gap: 1.25rem;
     }
 
-    @media (max-width: 960px) {
-      .app-shell {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 1050px) {
+      .app-shell { grid-template-columns: 1fr; }
     }
 
     .card {
-      background: radial-gradient(circle at top left, #111827 0, #020617 55%, #000 100%);
+      background: radial-gradient(circle at top left, #020617 0, #020617 55%, #000 100%);
       border-radius: 0.9rem;
       padding: 0.9rem 1rem;
       border: 1px solid var(--border);
       box-shadow:
-        0 24px 80px rgba(15,23,42,0.7),
+        0 22px 60px rgba(15,23,42,0.75),
         0 0 0 1px rgba(15,23,42,0.9);
     }
 
@@ -81,105 +70,85 @@
       justify-content: space-between;
       align-items: baseline;
       gap: 0.75rem;
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.8rem;
     }
 
     .card-header-main {
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
+      gap: 0.25rem;
     }
 
     .pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.25rem;
-      padding: 0.12rem 0.55rem;
+      gap: 0.3rem;
+      padding: 0.14rem 0.7rem;
       border-radius: 999px;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       background: rgba(15,23,42,0.95);
-      border: 1px solid rgba(148,163,184,0.35);
+      border: 1px solid rgba(148,163,184,0.4);
       color: var(--muted);
     }
 
     .pill-dot {
-      width: 0.38rem;
-      height: 0.38rem;
+      width: 0.4rem;
+      height: 0.4rem;
       border-radius: 999px;
       background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(56,189,248,0.14);
+      box-shadow: 0 0 0 4px rgba(56,189,248,0.18);
     }
 
     .pill-strong {
       border-color: var(--accent);
-      background: rgba(15,23,42,0.9);
       color: #e0f2fe;
     }
 
-    .muted {
-      color: var(--muted);
-      font-size: 0.78rem;
-    }
-
-    .muted-strong {
-      color: #e5e7eb;
-      font-size: 0.8rem;
-    }
+    .muted { color: var(--muted); font-size: 0.8rem; }
 
     .controls-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.45rem;
       align-items: center;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.8rem;
     }
 
     .btn {
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.4);
-      background: radial-gradient(circle at top, #1e293b 0, #020617 62%);
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.9);
       color: var(--text);
-      padding: 0.22rem 0.7rem;
-      font-size: 0.78rem;
+      padding: 0.28rem 0.75rem;
+      font-size: 0.8rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.3rem;
       cursor: pointer;
-      transition: background 0.14s ease, border-color 0.14s ease, transform 0.08s ease;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
     }
 
-    .btn span.icon {
-      font-size: 0.9rem;
+    .btn span.icon { font-size: 0.95rem; }
+
+    .btn:hover {
+      border-color: rgba(148,163,184,0.9);
+      background: rgba(31,41,55,0.95);
+      transform: translateY(-0.5px);
     }
 
     .btn-primary {
       border-color: var(--accent);
-      background: linear-gradient(135deg, rgba(56,189,248,0.19), rgba(129,140,248,0.26));
+      background: linear-gradient(135deg, rgba(56,189,248,0.26), rgba(129,140,248,0.28));
       box-shadow:
-        0 0 0 1px rgba(56,189,248,0.25),
+        0 0 0 1px rgba(56,189,248,0.35),
         0 18px 40px rgba(15,23,42,0.9);
-    }
-
-    .btn:hover {
-      border-color: rgba(148,163,184,0.8);
-      transform: translateY(-0.5px);
-      background: radial-gradient(circle at top, #1f2937 0, #020617 70%);
-    }
-
-    .btn-primary:hover {
-      border-color: var(--accent);
-      background: linear-gradient(135deg, rgba(56,189,248,0.26), rgba(129,140,248,0.34));
-    }
-
-    .btn-secondary {
-      background: rgba(15,23,42,0.7);
     }
 
     .btn-toggle-on {
       border-color: var(--accent);
-      background: rgba(56,189,248,0.16);
+      background: rgba(56,189,248,0.18);
       color: #e0f2fe;
     }
 
@@ -187,75 +156,51 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      font-size: 0.75rem;
-      margin-top: 0.45rem;
+      font-size: 0.76rem;
+      margin-bottom: 0.9rem;
     }
 
     .legend-item {
       display: inline-flex;
       align-items: center;
-      gap: 0.32rem;
-      padding: 0.1rem 0.4rem;
+      gap: 0.35rem;
+      padding: 0.18rem 0.55rem;
       border-radius: 999px;
-      background: rgba(15,23,42,0.8);
-      border: 1px solid rgba(31,41,55,0.8);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(31,41,55,0.9);
     }
 
     .legend-swatch {
-      width: 0.75rem;
-      height: 0.75rem;
-      border-radius: 0.18rem;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 0.2rem;
       border: 1px solid rgba(15,23,42,0.9);
     }
 
-    .swatch-booked {
-      background: linear-gradient(135deg, #0ea5e9, #22c55e);
-    }
+    .swatch-booked { background: linear-gradient(135deg, #0ea5e9, #22c55e); }
+    .swatch-suggested { background: linear-gradient(135deg, #facc15, #fb923c); }
+    .swatch-weather { background: linear-gradient(135deg, #22d3ee, #6366f1); }
 
-    .swatch-suggested {
-      background: linear-gradient(135deg, #facc15, #fb923c);
-    }
-
-    .swatch-weather {
-      background: linear-gradient(135deg, #22d3ee, #6366f1);
-    }
-
-    .swatch-balance {
-      background: linear-gradient(135deg, #4ade80, #22c55e);
-    }
-
-    .swatch-low {
-      background: linear-gradient(135deg, #f97373, #f97316);
-    }
+    /* CALENDAR */
 
     .calendar-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.75rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
     }
 
-    @media (max-width: 1200px) {
-      .calendar-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 800px) {
-      .calendar-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 900px) {
+      .calendar-grid { grid-template-columns: 1fr; }
     }
 
     .month-card {
-      background: radial-gradient(circle at top left, #020617 0, #020617 52%, #000 100%);
-      border-radius: 0.8rem;
+      background: radial-gradient(circle at top left, #020617 0, #020617 55%, #000 100%);
+      border-radius: 0.9rem;
       border: 1px solid var(--border);
-      padding: 0.55rem 0.6rem 0.65rem;
+      padding: 0.8rem 0.9rem 0.75rem;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
-      position: relative;
-      overflow: hidden;
+      gap: 0.55rem;
     }
 
     .month-header {
@@ -263,15 +208,13 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 0.4rem;
-      margin-bottom: 0.35rem;
     }
 
     .month-title {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
-      color: #e5e7eb;
     }
 
     .month-subtitle {
@@ -279,75 +222,57 @@
       color: var(--muted);
     }
 
-    .balance-pill {
-      font-size: 0.7rem;
-      padding: 0.15rem 0.4rem;
+    .month-balance-pill {
+      font-size: 0.75rem;
+      padding: 0.18rem 0.55rem;
       border-radius: 999px;
-      border: 1px solid rgba(52,211,153,0.5);
-      background: rgba(22,101,52,0.18);
+      border: 1px solid rgba(34,197,94,0.55);
+      background: rgba(21,128,61,0.18);
       color: #bbf7d0;
-      display: inline-flex;
-      gap: 0.28rem;
-      align-items: center;
       white-space: nowrap;
     }
 
-    .balance-pill span {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 0.12rem;
-    }
-
-    .balance-pill .label {
-      color: #a7f3d0;
-      font-size: 0.66rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
     .month-body {
-      display: grid;
-      grid-template-rows: auto auto;
-      gap: 0.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
     }
 
     .weekday-row {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 0.1rem;
-      font-size: 0.64rem;
+      gap: 0.06rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--muted);
+      padding-bottom: 0.1rem;
     }
 
     .weekday-row div {
       text-align: center;
-      padding-bottom: 0.1rem;
     }
 
     .days-grid {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 0.08rem;
-      font-size: 0.7rem;
+      gap: 0.14rem;
     }
 
     .day-cell {
-      min-height: 50px;
-      border-radius: 0.42rem;
-      border: 1px solid var(--grid-line);
-      padding: 0.18rem 0.16rem;
+      min-height: 66px;
+      border-radius: 0.55rem;
+      border: 1px solid rgba(31,41,55,0.95);
+      padding: 0.22rem 0.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.08rem;
-      position: relative;
+      justify-content: space-between;
       background: radial-gradient(circle at top, rgba(15,23,42,0.95) 0, #020617 70%);
-      overflow: hidden;
+      font-size: 0.85rem;
     }
 
     .day-empty {
-      background: radial-gradient(circle at top, #020617 0, #020617 70%);
+      background: #020617;
       border-style: dashed;
       border-color: #020617;
     }
@@ -356,268 +281,213 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 0.2rem;
+      margin-bottom: 0.15rem;
     }
 
     .day-number {
-      font-size: 0.75rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .day-dot {
-      width: 0.32rem;
-      height: 0.32rem;
-      border-radius: 999px;
-      background: rgba(148,163,184,0.7);
-    }
-
-    .day-today .day-dot {
-      background: var(--today);
-      box-shadow: 0 0 0 4px rgba(34,197,94,0.26);
     }
 
     .day-booked {
       border-color: rgba(56,189,248,0.9);
-      background: radial-gradient(circle at top, rgba(56,189,248,0.22) 0, #020617 72%);
+      background: radial-gradient(circle at top, rgba(56,189,248,0.22) 0, #020617 70%);
       box-shadow:
         0 0 0 1px rgba(56,189,248,0.3),
-        0 0 16px rgba(56,189,248,0.35);
+        0 0 18px rgba(56,189,248,0.32);
     }
 
-    .day-suggested {
+    .day-suggested-only {
       border-color: rgba(250,204,21,0.9);
-      background: radial-gradient(circle at top, rgba(250,204,21,0.18) 0, #020617 72%);
+      background: radial-gradient(circle at top, rgba(250,204,21,0.17) 0, #020617 70%);
       box-shadow:
-        0 0 0 1px rgba(250,204,21,0.3),
-        0 0 16px rgba(251,191,36,0.28);
+        0 0 0 1px rgba(250,204,21,0.32),
+        0 0 16px rgba(251,191,36,0.25);
     }
 
-    .day-pto-pill {
-      font-size: 0.69rem;
-      padding: 0.05rem 0.35rem;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      background: rgba(15,23,42,0.82);
-      border: 1px solid rgba(148,163,184,0.55);
-      color: #e5e7eb;
-      white-space: nowrap;
-      max-width: 100%;
+    .pto-block {
+      line-height: 1.3;
     }
 
-    .day-pto-pill span.type {
+    .pto-main {
       font-weight: 600;
-      letter-spacing: 0.04em;
+      font-size: 0.9rem;
     }
 
-    .day-pto-pill span.meta {
-      color: var(--muted);
-      font-size: 0.66rem;
+    .pto-sub {
+      font-size: 0.75rem;
+      color: #e5e7eb;
     }
 
-    .day-pto-pill.suggested {
-      border-color: rgba(250,204,21,0.85);
-      background: rgba(250,204,21,0.12);
+    .pto-suggested {
+      font-size: 0.72rem;
       color: #fef9c3;
     }
 
-    .day-footer {
-      margin-top: auto;
+    .day-footer-line {
+      margin-top: 0.1rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .temps-strip {
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+      border-top: 1px dashed rgba(55,65,81,0.9);
+      font-size: 0.78rem;
+      color: var(--muted);
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 0.25rem;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      align-items: center;
     }
 
     .temps-chip {
-      font-size: 0.64rem;
-      padding: 0.05rem 0.28rem;
+      padding: 0.14rem 0.5rem;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.45);
-      background: rgba(15,23,42,0.9);
-      color: var(--muted-strong);
+      border: 1px solid rgba(148,163,184,0.65);
+      background: rgba(15,23,42,0.95);
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
       white-space: nowrap;
-      max-width: 100%;
-    }
-
-    .temps-chip span {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.14rem;
     }
 
     .temps-chip span.label {
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      font-size: 0.6rem;
       color: #cbd5f5;
     }
 
-    .temps-chip span.symbol {
-      font-size: 0.72rem;
-    }
+    .temps-chip span.hi { color: #f97316; }
+    .temps-chip span.lo { color: #38bdf8; }
+    .temps-chip span.water { color: #22d3ee; }
 
-    .temps-chip.badge {
-      border-color: rgba(56,189,248,0.65);
-      background: rgba(15,23,42,0.95);
-    }
+    .temps-chip.excellent { border-color: rgba(52,211,153,0.85); }
+    .temps-chip.good { border-color: rgba(251,191,36,0.85); }
+    .temps-chip.fair { border-color: rgba(248,113,113,0.85); }
 
-    .temps-chip .quality {
-      font-size: 0.62rem;
-      color: #a5b4fc;
-    }
-
-    .temps-chip .water {
-      color: #22d3ee;
-    }
-
-    .temps-chip .hi {
-      color: #f97316;
-    }
-
-    .temps-chip .lo {
-      color: #38bdf8;
-    }
+    /* SIDE PANEL */
 
     .side-panel {
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
+      gap: 0.8rem;
     }
 
-    .metric-row {
+    .balance-cards {
       display: flex;
-      gap: 0.4rem;
-      margin-top: 0.25rem;
-    }
-
-    .metric-card {
-      flex: 1;
-      border-radius: 0.7rem;
-      padding: 0.45rem 0.55rem;
-      border: 1px solid rgba(30,64,175,0.8);
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 66%);
-    }
-
-    .metric-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #a5b4fc;
-      margin-bottom: 0.12rem;
-    }
-
-    .metric-value {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .metric-sub {
-      font-size: 0.7rem;
-      color: var(--muted);
-    }
-
-    .divider {
-      border-top: 1px dashed rgba(55,65,81,0.8);
-      margin: 0.4rem 0;
-    }
-
-    .week-weather-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
       margin-top: 0.3rem;
     }
 
-    .week-weather-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.25rem 0.3rem;
-      border-radius: 0.5rem;
-      border: 1px solid rgba(31,41,55,0.8);
-      background: radial-gradient(circle at left, rgba(15,23,42,0.95) 0, #020617 72%);
+    .balance-card {
+      flex: 1 1 90px;
+      min-width: 0;
+      padding: 0.45rem 0.55rem;
+      border-radius: 0.7rem;
+      border: 1px solid rgba(31,41,55,0.9);
+      background: radial-gradient(circle at top left, #020617 0, #020617 65%);
+      cursor: pointer;
+      transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .balance-card:hover {
+      border-color: rgba(148,163,184,0.9);
+      box-shadow: 0 0 0 1px rgba(148,163,184,0.4);
+    }
+
+    .balance-card.active {
+      border-color: var(--accent);
+      box-shadow:
+        0 0 0 1px rgba(56,189,248,0.45),
+        0 16px 40px rgba(15,23,42,0.9);
+      background: radial-gradient(circle at top left, rgba(37,99,235,0.3) 0, #020617 70%);
+    }
+
+    .balance-label {
       font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
     }
 
-    .week-weather-label {
-      display: flex;
-      flex-direction: column;
-      gap: 0.08rem;
+    .balance-main {
+      font-size: 1.15rem;
+      font-weight: 600;
     }
 
-    .week-weather-title {
-      font-size: 0.74rem;
-      color: #e5e7eb;
-    }
-
-    .week-weather-dates {
-      font-size: 0.68rem;
+    .balance-sub {
+      font-size: 0.76rem;
       color: var(--muted);
     }
 
-    .week-weather-temps {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      white-space: nowrap;
+    .detail-panel {
+      margin-top: 0.6rem;
+      border-radius: 0.7rem;
+      border: 1px solid rgba(31,41,55,0.9);
+      background: radial-gradient(circle at top left, #020617 0, #020617 65%);
+      padding: 0.55rem 0.6rem;
+      font-size: 0.8rem;
     }
 
-    .badge {
-      padding: 0.02rem 0.32rem;
+    .detail-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .detail-tabs {
+      display: flex;
+      gap: 0.35rem;
+      margin-bottom: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .detail-tab {
+      padding: 0.14rem 0.5rem;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
-      font-size: 0.62rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.18rem;
-    }
-
-    .badge.excellent {
-      border-color: rgba(52,211,153,0.8);
-      color: #bbf7d0;
-      background: rgba(22,101,52,0.35);
-    }
-
-    .badge.very-good {
-      border-color: rgba(56,189,248,0.8);
-      color: #e0f2fe;
-      background: rgba(15,23,42,0.8);
-    }
-
-    .badge.good {
-      border-color: rgba(251,191,36,0.8);
-      color: #fef3c7;
-      background: rgba(120,53,15,0.4);
-    }
-
-    .badge.fair {
-      border-color: rgba(248,113,113,0.8);
-      color: #fee2e2;
-      background: rgba(127,29,29,0.5);
-    }
-
-    .badge-poi {
-      border-color: rgba(251,191,36,0.9);
-      color: #fef9c3;
-      background: rgba(120,53,15,0.55);
-    }
-
-    .hint {
-      font-size: 0.7rem;
+      border: 1px solid rgba(55,65,81,0.9);
+      cursor: pointer;
+      font-size: 0.76rem;
       color: var(--muted);
     }
 
-    .hint strong {
-      color: #e5e7eb;
-      font-weight: 500;
+    .detail-tab.active {
+      border-color: var(--accent);
+      color: #e0f2fe;
+      background: rgba(56,189,248,0.2);
+    }
+
+    .detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+
+    .detail-table th,
+    .detail-table td {
+      padding: 0.2rem 0.25rem;
+      border-bottom: 1px solid rgba(31,41,55,0.9);
+      text-align: right;
+    }
+
+    .detail-table th:first-child,
+    .detail-table td:first-child {
+      text-align: left;
+    }
+
+    .detail-table thead {
+      background: rgba(15,23,42,0.9);
+    }
+
+    .detail-note {
+      margin-top: 0.35rem;
+      font-size: 0.74rem;
+      color: var(--muted);
     }
   </style>
 </head>
@@ -628,35 +498,30 @@
         <div class="card-header-main">
           <div class="pill pill-strong">
             <span class="pill-dot"></span>
-            2026 PTO &amp; BOATING CALENDAR
+            2026 PTO CALENDAR & TRAVERSE CITY WEEKS
           </div>
-          <h1>2026 PTO Calendar &amp; Traverse City Weeks</h1>
+          <h1>2026 PTO & Boating Planner</h1>
           <p class="muted">
-            Seeded PTO, suggested boating weeks, monthly balances, and weekly ⬆️/⬇️ temps with 🌊 water temps for Traverse City.
+            Clear monthly calendar with PTO hours plus weekly Traverse City temps, backed by pay‑period and monthly breakdowns.
           </p>
         </div>
-        <div class="muted-strong" style="text-align:right;">
-          <div>Traverse City, MI focus • May–Oct weather bands</div>
-          <div style="font-size:0.7rem; color:var(--muted);">
-            Air highs/lows and water are typical weekly averages.
-          </div>
+        <div style="text-align:right;font-size:0.78rem;color:var(--muted);">
+          <div>Interactive toggles and drill‑downs for AL, SL, and RL.</div>
+          <div>All balances and weather from your 2026 tracker.</div>
         </div>
       </div>
 
       <div class="controls-bar">
-        <button class="btn btn-secondary btn-toggle-on" id="togglePtoBtn">
-          <span class="icon">🧾</span><span>PTO details</span>
+        <button class="btn btn-toggle-on" id="togglePtoBtn">
+          <span class="icon">🧾</span><span>PTO on calendar</span>
         </button>
-        <button class="btn btn-secondary btn-toggle-on" id="toggleSugBtn">
-          <span class="icon">✨</span><span>Suggested days</span>
+        <button class="btn btn-toggle-on" id="toggleSugBtn">
+          <span class="icon">✨</span><span>Suggested PTO</span>
         </button>
-        <button class="btn btn-secondary btn-toggle-on" id="toggleTempBtn">
-          <span class="icon">🌡️</span><span>Week temps</span>
+        <button class="btn btn-toggle-on" id="toggleTempBtn">
+          <span class="icon">🌡️</span><span>Weather strips</span>
         </button>
-        <button class="btn btn-secondary btn-toggle-on" id="toggleBalBtn">
-          <span class="icon">📊</span><span>Monthly balances</span>
-        </button>
-        <button class="btn btn-primary" id="scrollTodayBtn">
+        <button class="btn btn-primary" id="scrollJulyBtn">
           <span class="icon">📅</span><span>Jump to July (prime)</span>
         </button>
       </div>
@@ -664,25 +529,19 @@
       <div class="legend">
         <div class="legend-item">
           <div class="legend-swatch swatch-booked"></div>
-          <span>Booked PTO (seeded) – AL 1.3–8h</span>
+          <span>Booked PTO (seeded AL days)</span>
         </div>
         <div class="legend-item">
           <div class="legend-swatch swatch-suggested"></div>
-          <span>Suggested PTO – boating‑optimized</span>
+          <span>Suggested PTO for boating weeks</span>
         </div>
         <div class="legend-item">
           <div class="legend-swatch swatch-weather"></div>
-          <span>Weekly ⬆️ high / ⬇️ low / 🌊 water &amp; quality</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-swatch swatch-balance"></div>
-          <span>Monthly AL / SL / RL balance band</span>
+          <span>Weekly ⬆️/⬇️ temps & 🌊 water (May–Oct)</span>
         </div>
       </div>
 
-      <div class="calendar-grid" id="calendarRoot">
-        <!-- Months injected by JS -->
-      </div>
+      <div class="calendar-grid" id="calendarRoot"></div>
     </main>
 
     <aside class="side-panel">
@@ -691,170 +550,101 @@
           <div class="card-header-main">
             <div class="pill">
               <span class="pill-dot"></span>
-              CURRENT BALANCES SNAPSHOT
+              LEAVE SNAPSHOT & DRILL‑DOWN
             </div>
-            <h2 style="font-size:1rem;">2026 Leave Balances</h2>
+            <h2 style="font-size:1rem;">2026 Balances</h2>
           </div>
         </div>
-        <div class="metric-row">
-          <div class="metric-card">
-            <div class="metric-label">Annual Leave (AL)</div>
-            <div class="metric-value">125.2 h</div>
-            <div class="metric-sub">End of year balance (Dec 18)</div>
+
+        <div class="balance-cards">
+          <div class="balance-card active" data-leave="AL">
+            <div class="balance-label">Annual Leave</div>
+            <div class="balance-main">125.2 h</div>
+            <div class="balance-sub">Year end balance, lowest 53.2 h (Aug)</div>
           </div>
-          <div class="metric-card">
-            <div class="metric-label">Sick Leave (SL)</div>
-            <div class="metric-value">158.25 h</div>
-            <div class="metric-sub">No seeded SL usage in 2026</div>
+          <div class="balance-card" data-leave="SL">
+            <div class="balance-label">Sick Leave</div>
+            <div class="balance-main">158.25 h</div>
+            <div class="balance-sub">No seeded SL usage in 2026</div>
+          </div>
+          <div class="balance-card" data-leave="RL">
+            <div class="balance-label">Reward Leave</div>
+            <div class="balance-main">24.0 h</div>
+            <div class="balance-sub">Fixed, no accrual in 2026</div>
           </div>
         </div>
-        <div class="metric-row">
-          <div class="metric-card">
-            <div class="metric-label">Reward Leave (RL)</div>
-            <div class="metric-value">24.0 h</div>
-            <div class="metric-sub">Fixed, no accrual or usage planned</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">AL low point</div>
-            <div class="metric-value">53.2 h</div>
-            <div class="metric-sub">Late August before Sep accrual</div>
-          </div>
+
+        <div class="detail-panel" id="detailPanel">
+          <!-- Filled by JS -->
         </div>
-        <div class="divider"></div>
-        <p class="hint">
-          This view uses your 2026 paystub‑based balances and seeded PTO as of 12/18/26. Use the toggles to focus on PTO, suggested boating weeks, or temps.
-        </p>
-      </section>
-
-      <section class="card">
-        <div class="card-header">
-          <div class="card-header-main">
-            <div class="pill">
-              <span class="pill-dot"></span>
-              PRIME BOATING WINDOWS
-            </div>
-            <h2 style="font-size:1rem;">Top Weather Weeks (Traverse City)</h2>
-          </div>
-        </div>
-        <div class="week-weather-list">
-          <!-- Highlight a few prime/shoulder weeks -->
-          <div class="week-weather-row">
-            <div class="week-weather-label">
-              <div class="week-weather-title">Week 9 – July 1–7</div>
-              <div class="week-weather-dates">Peak summer heat, great water temps.</div>
-            </div>
-            <div class="week-weather-temps">
-              <span class="badge excellent">
-                <span>⬆️ 81°F</span><span>⬇️ 58°F</span>
-              </span>
-              <span class="badge excellent">
-                <span>🌊 69°F</span><span>Excellent</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="week-weather-row">
-            <div class="week-weather-label">
-              <div class="week-weather-title">Week 10 – July 8–14</div>
-              <div class="week-weather-dates">Highest air temps of the year.</div>
-            </div>
-            <div class="week-weather-temps">
-              <span class="badge excellent">
-                <span>⬆️ 82°F</span><span>⬇️ 59°F</span>
-              </span>
-              <span class="badge excellent">
-                <span>🌊 71°F</span><span>Excellent</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="week-weather-row">
-            <div class="week-weather-label">
-              <div class="week-weather-title">Week 11 – July 15–21</div>
-              <div class="week-weather-dates">Lake at warmest (~72°F).</div>
-            </div>
-            <div class="week-weather-temps">
-              <span class="badge excellent">
-                <span>⬆️ 82°F</span><span>⬇️ 59°F</span>
-              </span>
-              <span class="badge excellent">
-                <span>🌊 72°F</span><span>Excellent</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="week-weather-row">
-            <div class="week-weather-label">
-              <div class="week-weather-title">Week 13 – Aug 1–7</div>
-              <div class="week-weather-dates">Early August still hot, perfect swimming.</div>
-            </div>
-            <div class="week-weather-temps">
-              <span class="badge excellent">
-                <span>⬆️ 79°F</span><span>⬇️ 58°F</span>
-              </span>
-              <span class="badge excellent">
-                <span>🌊 70°F</span><span>Excellent</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="week-weather-row">
-            <div class="week-weather-label">
-              <div class="week-weather-title">Week 17 – Sept 1–7</div>
-              <div class="week-weather-dates">Bonus summer, water still warm.</div>
-            </div>
-            <div class="week-weather-temps">
-              <span class="badge very-good">
-                <span>⬆️ 74°F</span><span>⬇️ 53°F</span>
-              </span>
-              <span class="badge very-good">
-                <span>🌊 66°F</span><span>Very Good</span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="hint">
-          Bluer chips = better boating conditions. Use this panel to pick between July peak, August warmth, and September shoulder weeks.
-        </p>
       </section>
     </aside>
   </div>
 
   <script>
-    // Months meta
+    // MONTH META (2026) [file:1]
     const monthsMeta = [
-      { name: "January", index: 0, days: 31, startWeekday: 4 },   // Jan 1, 2026 is Thursday
-      { name: "February", index: 1, days: 28, startWeekday: 0 }, // Sunday
-      { name: "March", index: 2, days: 31, startWeekday: 0 },    // Sunday
-      { name: "April", index: 3, days: 30, startWeekday: 3 },    // Wednesday
-      { name: "May", index: 4, days: 31, startWeekday: 5 },      // Friday
-      { name: "June", index: 5, days: 30, startWeekday: 1 },     // Monday
-      { name: "July", index: 6, days: 31, startWeekday: 3 },     // Wednesday
-      { name: "August", index: 7, days: 31, startWeekday: 6 },   // Saturday
-      { name: "September", index: 8, days: 30, startWeekday: 2 },// Tuesday
-      { name: "October", index: 9, days: 31, startWeekday: 4 },  // Thursday
-      { name: "November", index: 10, days: 30, startWeekday: 0 },// Sunday
-      { name: "December", index: 11, days: 31, startWeekday: 2 } // Tuesday
+      { name: "January", index: 0, days: 31, startWeekday: 4 },
+      { name: "February", index: 1, days: 28, startWeekday: 0 },
+      { name: "March", index: 2, days: 31, startWeekday: 0 },
+      { name: "April", index: 3, days: 30, startWeekday: 3 },
+      { name: "May", index: 4, days: 31, startWeekday: 5 },
+      { name: "June", index: 5, days: 30, startWeekday: 1 },
+      { name: "July", index: 6, days: 31, startWeekday: 3 },
+      { name: "August", index: 7, days: 31, startWeekday: 6 },
+      { name: "September", index: 8, days: 30, startWeekday: 2 },
+      { name: "October", index: 9, days: 31, startWeekday: 4 },
+      { name: "November", index: 10, days: 30, startWeekday: 0 },
+      { name: "December", index: 11, days: 31, startWeekday: 2 }
     ];
 
-    // Calendar View Key monthly balances (AL/SL/RL) from Excel
+    // MONTH BALANCES (Calendar View Key) [file:1]
     const monthBalances = {
-      0: { startAL: 80.5, endAL: 80.5, usedAL: 0.0, startSL: 58.25, endSL: 58.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      1: { startAL: 80.5, endAL: 85.2, usedAL: 1.3, startSL: 58.25, endSL: 62.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      2: { startAL: 85.2, endAL: 97.2, usedAL: 0.0, startSL: 62.25, endSL: 70.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      3: { startAL: 97.2, endAL: 77.2, usedAL: 32.0, startSL: 70.25, endSL: 78.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      4: { startAL: 77.2, endAL: 89.2, usedAL: 0.0, startSL: 78.25, endSL: 86.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      5: { startAL: 89.2, endAL: 93.2, usedAL: 8.0, startSL: 86.25, endSL: 94.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      6: { startAL: 93.2, endAL: 57.2, usedAL: 48.0, startSL: 94.25, endSL: 102.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      7: { startAL: 57.2, endAL: 53.2, usedAL: 16.0, startSL: 102.25, endSL: 110.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      8: { startAL: 53.2, endAL: 65.2, usedAL: 0.0, startSL: 110.25, endSL: 118.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      9: { startAL: 65.2, endAL: 77.2, usedAL: 0.0, startSL: 118.25, endSL: 126.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      10:{ startAL: 77.2, endAL: 89.2, usedAL: 0.0, startSL: 126.25, endSL: 134.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
-      11:{ startAL: 89.2, endAL: 101.2, usedAL: 0.0, startSL: 134.25, endSL: 142.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 }
+      0: { startAL: 80.5, endAL: 80.5, usedAL: 0.0, startSL: 58.25, endSL: 58.25, usedSL: 0.0 },
+      1: { startAL: 80.5, endAL: 85.2, usedAL: 1.3, startSL: 58.25, endSL: 62.25, usedSL: 0.0 },
+      2: { startAL: 85.2, endAL: 97.2, usedAL: 0.0, startSL: 62.25, endSL: 70.25, usedSL: 0.0 },
+      3: { startAL: 97.2, endAL: 77.2, usedAL: 32.0, startSL: 70.25, endSL: 78.25, usedSL: 0.0 },
+      4: { startAL: 77.2, endAL: 89.2, usedAL: 0.0, startSL: 78.25, endSL: 86.25, usedSL: 0.0 },
+      5: { startAL: 89.2, endAL: 93.2, usedAL: 8.0, startSL: 86.25, endSL: 94.25, usedSL: 0.0 },
+      6: { startAL: 93.2, endAL: 57.2, usedAL: 48.0, startSL: 94.25, endSL: 102.25, usedSL: 0.0 },
+      7: { startAL: 57.2, endAL: 53.2, usedAL: 16.0, startSL: 102.25, endSL: 110.25, usedSL: 0.0 },
+      8: { startAL: 53.2, endAL: 65.2, usedAL: 0.0, startSL: 110.25, endSL: 118.25, usedSL: 0.0 },
+      9: { startAL: 65.2, endAL: 77.2, usedAL: 0.0, startSL: 118.25, endSL: 126.25, usedSL: 0.0 },
+      10:{ startAL: 77.2, endAL: 89.2, usedAL: 0.0, startSL: 126.25, endSL: 134.25, usedSL: 0.0 },
+      11:{ startAL: 89.2, endAL: 101.2, usedAL: 0.0, startSL: 134.25, endSL: 142.25, usedSL: 0.0 }
     };
 
-    // Seeded PTO dates (existing AL) from Seed Leave Dates sheet
+    // PAYSTUB VIEW (condensed AL/SL/RL columns) [file:1]
+    const paystubRows = [
+      { date:"2026-01-02", alEarn:0, slEarn:0, alUsed:0, slUsed:0, rlUsed:0, alBal:80.5, slBal:58.25, rlBal:24 },
+      { date:"2026-01-16", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:86.5, slBal:62.25, rlBal:24 },
+      { date:"2026-01-30", alEarn:6, slEarn:4, alUsed:1.3, slUsed:0, rlUsed:0, alBal:91.2, slBal:66.25, rlBal:24 },
+      { date:"2026-02-13", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:97.2, slBal:70.25, rlBal:24 },
+      { date:"2026-02-27", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:103.2, slBal:74.25, rlBal:24 },
+      { date:"2026-03-13", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:109.2, slBal:78.25, rlBal:24 },
+      { date:"2026-03-27", alEarn:6, slEarn:4, alUsed:32, slUsed:0, rlUsed:0, alBal:83.2, slBal:82.25, rlBal:24 },
+      { date:"2026-04-10", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:89.2, slBal:86.25, rlBal:24 },
+      { date:"2026-04-24", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:95.2, slBal:90.25, rlBal:24 },
+      { date:"2026-05-08", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:101.2, slBal:94.25, rlBal:24 },
+      { date:"2026-05-22", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:107.2, slBal:98.25, rlBal:24 },
+      { date:"2026-06-05", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:113.2, slBal:102.25, rlBal:24 },
+      { date:"2026-06-19", alEarn:6, slEarn:4, alUsed:8, slUsed:0, rlUsed:0, alBal:111.2, slBal:106.25, rlBal:24 },
+      { date:"2026-07-03", alEarn:6, slEarn:4, alUsed:40, slUsed:0, rlUsed:0, alBal:77.2, slBal:110.25, rlBal:24 },
+      { date:"2026-07-17", alEarn:6, slEarn:4, alUsed:8, slUsed:0, rlUsed:0, alBal:75.2, slBal:114.25, rlBal:24 },
+      { date:"2026-07-31", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:81.2, slBal:118.25, rlBal:24 },
+      { date:"2026-08-14", alEarn:6, slEarn:4, alUsed:8, slUsed:0, rlUsed:0, alBal:79.2, slBal:122.25, rlBal:24 },
+      { date:"2026-08-28", alEarn:6, slEarn:4, alUsed:8, slUsed:0, rlUsed:0, alBal:77.2, slBal:126.25, rlBal:24 },
+      { date:"2026-09-11", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:83.2, slBal:130.25, rlBal:24 },
+      { date:"2026-09-25", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:89.2, slBal:134.25, rlBal:24 },
+      { date:"2026-10-09", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:95.2, slBal:138.25, rlBal:24 },
+      { date:"2026-10-23", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:101.2, slBal:142.25, rlBal:24 },
+      { date:"2026-11-06", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:107.2, slBal:146.25, rlBal:24 },
+      { date:"2026-11-20", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:113.2, slBal:150.25, rlBal:24 },
+      { date:"2026-12-04", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:119.2, slBal:154.25, rlBal:24 },
+      { date:"2026-12-18", alEarn:6, slEarn:4, alUsed:0, slUsed:0, rlUsed:0, alBal:125.2, slBal:158.25, rlBal:24 }
+    ];
+
+    // Seeded PTO [file:1][file:2]
     const seededPto = [
       { date: "2026-02-09", type: "AL", hours: 1.3 },
       { date: "2026-04-02", type: "AL", hours: 8.0 },
@@ -872,51 +662,50 @@
       { date: "2026-08-28", type: "AL", hours: 8.0 }
     ];
 
-    // Suggested PTO from Suggested Days OFF (only those that are explicit date blocks)
+    // Suggested PTO (from Suggested Days OFF) [file:1]
     const suggestedPto = [
-      // Rank 1 – Mon 7/20–Fri 7/24
+      // Rank 1 – Jul 20–24
       { date: "2026-07-20", type: "AL", hours: 8.0 },
       { date: "2026-07-21", type: "AL", hours: 8.0 },
       { date: "2026-07-22", type: "AL", hours: 8.0 },
       { date: "2026-07-23", type: "AL", hours: 8.0 },
       { date: "2026-07-24", type: "AL", hours: 8.0 },
-      // Rank 4 – Mon 8/3–Fri 8/7
+      // Rank 4 – Aug 3–7
       { date: "2026-08-03", type: "AL", hours: 8.0 },
       { date: "2026-08-04", type: "AL", hours: 8.0 },
       { date: "2026-08-05", type: "AL", hours: 8.0 },
       { date: "2026-08-06", type: "AL", hours: 8.0 },
       { date: "2026-08-07", type: "AL", hours: 8.0 },
-      // Rank 5 – Mon 8/10–Fri 8/14 (note: 8/14 seeded)
+      // Rank 5 – Aug 10–13 (14 seeded)
       { date: "2026-08-10", type: "AL", hours: 8.0 },
       { date: "2026-08-11", type: "AL", hours: 8.0 },
       { date: "2026-08-12", type: "AL", hours: 8.0 },
       { date: "2026-08-13", type: "AL", hours: 8.0 },
-      // Rank 6 – Mon 6/15–Fri 6/19
+      // Rank 6 – Jun 15–19
       { date: "2026-06-15", type: "AL", hours: 8.0 },
       { date: "2026-06-16", type: "AL", hours: 8.0 },
       { date: "2026-06-17", type: "AL", hours: 8.0 },
       { date: "2026-06-18", type: "AL", hours: 8.0 },
       { date: "2026-06-19", type: "AL", hours: 8.0 },
-      // Rank 8 – optional Fri 6/26 and Tue 6/30
+      // Rank 8 – Jun 26, Jun 30
       { date: "2026-06-26", type: "AL", hours: 8.0 },
       { date: "2026-06-30", type: "AL", hours: 8.0 },
-      // Rank 9 – Mon 8/17–Fri 8/21
+      // Rank 9 – Aug 17–21
       { date: "2026-08-17", type: "AL", hours: 8.0 },
       { date: "2026-08-18", type: "AL", hours: 8.0 },
       { date: "2026-08-19", type: "AL", hours: 8.0 },
       { date: "2026-08-20", type: "AL", hours: 8.0 },
       { date: "2026-08-21", type: "AL", hours: 8.0 },
-      // Rank 10 – assume full week after Labor Day: Mon 9/7–Fri 9/11
+      // Rank 10 – Sep 7–11 (after Labor Day)
       { date: "2026-09-07", type: "AL", hours: 8.0 },
       { date: "2026-09-08", type: "AL", hours: 8.0 },
       { date: "2026-09-09", type: "AL", hours: 8.0 },
       { date: "2026-09-10", type: "AL", hours: 8.0 },
       { date: "2026-09-11", type: "AL", hours: 8.0 },
-      // Rank 11 – Wed 8/26–Fri 8/28
+      // Rank 11 – Aug 26–27 (28 seeded)
       { date: "2026-08-26", type: "AL", hours: 8.0 },
       { date: "2026-08-27", type: "AL", hours: 8.0 },
-      // 12 – Fri 9/11 already covered in Rank 10 range
-      // 13 – Mon 6/8–Fri 6/12
+      // Rank 13 – Jun 8–12
       { date: "2026-06-08", type: "AL", hours: 8.0 },
       { date: "2026-06-09", type: "AL", hours: 8.0 },
       { date: "2026-06-10", type: "AL", hours: 8.0 },
@@ -924,123 +713,57 @@
       { date: "2026-06-12", type: "AL", hours: 8.0 }
     ];
 
-    // Weather weeks May–Oct
+    // WEATHER WEEKS (May–Oct) [file:1]
     const weatherWeeks = [
-      { week: 1,  monthRange: "May",   dates: "May 1–7",   hi: 66, lo: 43, water: 45, quality: "Fair" },
-      { week: 2,  monthRange: "May",   dates: "May 8–14",  hi: 67, lo: 44, water: 48, quality: "Fair" },
-      { week: 3,  monthRange: "May",   dates: "May 15–21", hi: 68, lo: 44, water: 52, quality: "Good" },
-      { week: 4,  monthRange: "May",   dates: "May 22–31", hi: 70, lo: 46, water: 55, quality: "Good" },
-      { week: 5,  monthRange: "June",  dates: "Jun 1–7",   hi: 74, lo: 50, water: 58, quality: "Very Good" },
-      { week: 6,  monthRange: "June",  dates: "Jun 8–14",  hi: 76, lo: 52, water: 61, quality: "Very Good" },
-      { week: 7,  monthRange: "June",  dates: "Jun 15–21", hi: 77, lo: 53, water: 64, quality: "Excellent" },
-      { week: 8,  monthRange: "June",  dates: "Jun 22–30", hi: 76, lo: 53, water: 67, quality: "Excellent" },
-      { week: 9,  monthRange: "July",  dates: "Jul 1–7",   hi: 81, lo: 58, water: 69, quality: "Excellent" },
-      { week: 10, monthRange: "July",  dates: "Jul 8–14",  hi: 82, lo: 59, water: 71, quality: "Excellent" },
-      { week: 11, monthRange: "July",  dates: "Jul 15–21", hi: 82, lo: 59, water: 72, quality: "Excellent" },
-      { week: 12, monthRange: "July",  dates: "Jul 22–31", hi: 79, lo: 58, water: 71, quality: "Excellent" },
-      { week: 13, monthRange: "August",dates: "Aug 1–7",   hi: 79, lo: 58, water: 70, quality: "Excellent" },
-      { week: 14, monthRange: "August",dates: "Aug 8–14",  hi: 79, lo: 57, water: 71, quality: "Excellent" },
-      { week: 15, monthRange: "August",dates: "Aug 15–21", hi: 79, lo: 57, water: 69, quality: "Excellent" },
-      { week: 16, monthRange: "August",dates: "Aug 22–31", hi: 78, lo: 56, water: 67, quality: "Very Good" },
-      { week: 17, monthRange: "September",dates: "Sep 1–7", hi: 74, lo: 53, water: 66, quality: "Very Good" },
-      { week: 18, monthRange: "September",dates: "Sep 8–14", hi: 72, lo: 52, water: 65, quality: "Very Good" },
-      { week: 19, monthRange: "September",dates: "Sep 15–21",hi: 71, lo: 51, water: 64, quality: "Good" },
-      { week: 20, monthRange: "September",dates: "Sep 22–30",hi: 70, lo: 50, water: 62, quality: "Good" },
-      { week: 21, monthRange: "October",dates: "Oct 1–7",  hi: 59, lo: 42, water: 61, quality: "Fair" },
-      { week: 22, monthRange: "October",dates: "Oct 8–14", hi: 58, lo: 41, water: 57, quality: "Fair" },
-      { week: 23, monthRange: "October",dates: "Oct 15–21",hi: 57, lo: 40, water: 56, quality: "Fair" },
-      { week: 24, monthRange: "October",dates: "Oct 22–31",hi: 55, lo: 40, water: 53, quality: "Fair" }
+      { month:4, label:"May 1–7",   hi:66, lo:43, water:45, q:"Fair" },
+      { month:4, label:"May 8–14",  hi:67, lo:44, water:48, q:"Fair" },
+      { month:4, label:"May 15–21", hi:68, lo:44, water:52, q:"Good" },
+      { month:4, label:"May 22–31", hi:70, lo:46, water:55, q:"Good" },
+      { month:5, label:"Jun 1–7",   hi:74, lo:50, water:58, q:"Very Good" },
+      { month:5, label:"Jun 8–14",  hi:76, lo:52, water:61, q:"Very Good" },
+      { month:5, label:"Jun 15–21", hi:77, lo:53, water:64, q:"Excellent" },
+      { month:5, label:"Jun 22–30", hi:76, lo:53, water:67, q:"Excellent" },
+      { month:6, label:"Jul 1–7",   hi:81, lo:58, water:69, q:"Excellent" },
+      { month:6, label:"Jul 8–14",  hi:82, lo:59, water:71, q:"Excellent" },
+      { month:6, label:"Jul 15–21", hi:82, lo:59, water:72, q:"Excellent" },
+      { month:6, label:"Jul 22–31", hi:79, lo:58, water:71, q:"Excellent" },
+      { month:7, label:"Aug 1–7",   hi:79, lo:58, water:70, q:"Excellent" },
+      { month:7, label:"Aug 8–14",  hi:79, lo:57, water:71, q:"Excellent" },
+      { month:7, label:"Aug 15–21", hi:79, lo:57, water:69, q:"Excellent" },
+      { month:7, label:"Aug 22–31", hi:78, lo:56, water:67, q:"Very Good" },
+      { month:8, label:"Sep 1–7",   hi:74, lo:53, water:66, q:"Very Good" },
+      { month:8, label:"Sep 8–14",  hi:72, lo:52, water:65, q:"Very Good" },
+      { month:8, label:"Sep 15–21", hi:71, lo:51, water:64, q:"Good" },
+      { month:8, label:"Sep 22–30", hi:70, lo:50, water:62, q:"Good" },
+      { month:9, label:"Oct 1–7",   hi:59, lo:42, water:61, q:"Fair" },
+      { month:9, label:"Oct 8–14",  hi:58, lo:41, water:57, q:"Fair" },
+      { month:9, label:"Oct 15–21", hi:57, lo:40, water:56, q:"Fair" },
+      { month:9, label:"Oct 22–31", hi:55, lo:40, water:53, q:"Fair" }
     ];
 
-    // Map each calendar date to which weather week applies (approx)
-    function getWeatherForDate(dateStr) {
-      const d = new Date(dateStr);
-      const month = d.getMonth();
-      const day = d.getDate();
-
-      // Only May–Oct have weather rows
-      if (month < 4 || month > 9) return null;
-
-      const label = (month === 4) ? "May"
-                   : (month === 5) ? "June"
-                   : (month === 6) ? "July"
-                   : (month === 7) ? "August"
-                   : (month === 8) ? "September"
-                   : "October";
-
-      // approximate mapping within each month by day ranges
-      let weekCandidates = weatherWeeks.filter(w => w.monthRange === label);
-      if (!weekCandidates.length) return null;
-
-      // pick by day
-      if (label === "May") {
-        if (day <= 7)      return weekCandidates[0];
-        if (day <= 14)     return weekCandidates[1];
-        if (day <= 21)     return weekCandidates[2];
-        return weekCandidates[3];
-      } else if (label === "June") {
-        if (day <= 7)      return weekCandidates[0];
-        if (day <= 14)     return weekCandidates[1];
-        if (day <= 21)     return weekCandidates[2];
-        return weekCandidates[3];
-      } else if (label === "July") {
-        if (day <= 7)      return weekCandidates[0];
-        if (day <= 14)     return weekCandidates[1];
-        if (day <= 21)     return weekCandidates[2];
-        return weekCandidates[3];
-      } else if (label === "August") {
-        if (day <= 7)      return weekCandidates[0];
-        if (day <= 14)     return weekCandidates[1];
-        if (day <= 21)     return weekCandidates[2];
-        return weekCandidates[3];
-      } else if (label === "September") {
-        if (day <= 7)      return weekCandidates[0];
-        if (day <= 14)     return weekCandidates[1];
-        if (day <= 21)     return weekCandidates[2];
-        return weekCandidates[3];
-      } else if (label === "October") {
-        if (day <= 7)      return weekCandidates[0];
-        if (day <= 14)     return weekCandidates[1];
-        if (day <= 21)     return weekCandidates[2];
-        return weekCandidates[3];
-      }
-      return null;
-    }
-
-    function formatBalShort(bal) {
-      if (!bal) return "";
-      const { startAL, endAL, usedAL } = bal;
-      return `AL ${startAL.toFixed(1)}→${endAL.toFixed(1)} (${usedAL.toFixed(1)}h used)`;
-    }
-
-    const seededMap = new Map();
-    seededPto.forEach(p => {
-      seededMap.set(p.date, p);
-    });
-
-    const suggestedMap = new Map();
-    suggestedPto.forEach(p => {
-      suggestedMap.set(p.date, p);
-    });
-
-    function qualityToClass(q) {
-      const qL = q.toLowerCase();
-      if (qL.includes("excellent")) return "excellent";
-      if (qL.includes("very")) return "very-good";
-      if (qL.includes("good")) return "good";
+    function qualityClass(q) {
+      const l = q.toLowerCase();
+      if (l.includes("excellent")) return "excellent";
+      if (l.includes("good") && !l.includes("very")) return "good";
+      if (l.includes("very")) return "excellent";
       return "fair";
     }
 
+    const seededMap = new Map();
+    seededPto.forEach(p => seededMap.set(p.date, p));
+
+    const suggestedMap = new Map();
+    suggestedPto.forEach(p => suggestedMap.set(p.date, p));
+
     function renderCalendar() {
+      const weekdays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
       const root = document.getElementById("calendarRoot");
       root.innerHTML = "";
-
-      const weekdays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
       monthsMeta.forEach(m => {
         const monthCard = document.createElement("section");
         monthCard.className = "month-card";
-        monthCard.id = `month-${m.index}`;
+        if (m.index === 6) monthCard.id = "month-july";
 
         const header = document.createElement("div");
         header.className = "month-header";
@@ -1051,28 +774,25 @@
         title.textContent = m.name.toUpperCase();
         left.appendChild(title);
 
-        const sub = document.createElement("div");
-        sub.className = "month-subtitle";
-
         const bal = monthBalances[m.index];
+        const subtitle = document.createElement("div");
+        subtitle.className = "month-subtitle";
         if (bal) {
-          sub.textContent = `AL ${bal.startAL.toFixed(1)}→${bal.endAL.toFixed(1)}, SL ${bal.startSL.toFixed(2)}→${bal.endSL.toFixed(2)}`;
+          subtitle.textContent =
+            `AL ${bal.startAL.toFixed(1)} → ${bal.endAL.toFixed(1)} (used ${bal.usedAL.toFixed(1)}h)`;
         } else {
-          sub.textContent = "No usage / accrual summary";
+          subtitle.textContent = "No usage summary";
         }
-        left.appendChild(sub);
+        left.appendChild(subtitle);
 
         const right = document.createElement("div");
         const balPill = document.createElement("div");
-        balPill.className = "balance-pill month-balance-pill";
+        balPill.className = "month-balance-pill";
         if (bal) {
-          balPill.innerHTML = `
-            <span><span class="label">AL</span> ${bal.startAL.toFixed(1)}→${bal.endAL.toFixed(1)}</span>
-            <span><span class="label">SL</span> ${bal.startSL.toFixed(1)}→${bal.endSL.toFixed(1)}</span>
-            <span><span class="label">RL</span> ${bal.startRL.toFixed(1)}→${bal.endRL.toFixed(1)}</span>
-          `;
+          balPill.textContent =
+            `SL ${bal.startSL.toFixed(1)} → ${bal.endSL.toFixed(1)} • RL ${24.0.toFixed(1)}h`;
         } else {
-          balPill.textContent = "No balances";
+          balPill.textContent = "SL / RL steady";
         }
         right.appendChild(balPill);
 
@@ -1086,9 +806,9 @@
         const weekdayRow = document.createElement("div");
         weekdayRow.className = "weekday-row";
         weekdays.forEach(w => {
-          const cell = document.createElement("div");
-          cell.textContent = w;
-          weekdayRow.appendChild(cell);
+          const div = document.createElement("div");
+          div.textContent = w;
+          weekdayRow.appendChild(div);
         });
         body.appendChild(weekdayRow);
 
@@ -1106,152 +826,388 @@
           const cell = document.createElement("div");
           cell.className = "day-cell";
 
-          const dayHeaderLine = document.createElement("div");
-          dayHeaderLine.className = "day-header-line";
+          const headerLine = document.createElement("div");
+          headerLine.className = "day-header-line";
 
-          const num = document.createElement("div");
-          num.className = "day-number";
-          num.textContent = day.toString();
+          const dayNum = document.createElement("div");
+          dayNum.className = "day-number";
+          dayNum.textContent = day.toString();
 
-          const dot = document.createElement("div");
-          dot.className = "day-dot";
+          headerLine.appendChild(dayNum);
 
-          dayHeaderLine.appendChild(num);
-          dayHeaderLine.appendChild(dot);
+          const ptoBlock = document.createElement("div");
+          ptoBlock.className = "pto-block";
 
-          const ptoRow = document.createElement("div");
-          ptoRow.style.display = "flex";
-          ptoRow.style.gap = "0.2rem";
-          ptoRow.style.flexWrap = "wrap";
+          const footerLine = document.createElement("div");
+          footerLine.className = "day-footer-line";
 
-          const footer = document.createElement("div");
-          footer.className = "day-footer";
-
-          const tempChipContainer = document.createElement("div");
-
-          const dateObj = new Date(year, m.index, day);
-          const iso = dateObj.toISOString().slice(0,10);
-
+          const d = new Date(year, m.index, day);
+          const iso = d.toISOString().slice(0,10);
           const seeded = seededMap.get(iso);
           const suggested = suggestedMap.get(iso);
 
           if (seeded) {
             cell.classList.add("day-booked");
-            const pill = document.createElement("div");
-            pill.className = "day-pto-pill";
-            pill.innerHTML = `
-              <span class="type">${seeded.type}</span>
-              <span class="meta">${seeded.hours}h</span>
-            `;
-            ptoRow.appendChild(pill);
+            const main = document.createElement("div");
+            main.className = "pto-main";
+            main.textContent = `${seeded.type} ${seeded.hours}h`;
+
+            const sub = document.createElement("div");
+            sub.className = "pto-sub";
+            sub.textContent = "Booked PTO";
+
+            ptoBlock.appendChild(main);
+            ptoBlock.appendChild(sub);
           }
 
           if (suggested) {
-            cell.classList.add("day-suggested");
-            const pill = document.createElement("div");
-            pill.className = "day-pto-pill suggested suggested-pill";
-            pill.innerHTML = `
-              <span class="type">${suggested.type}</span>
-              <span class="meta">${suggested.hours}h (suggested)</span>
-            `;
-            ptoRow.appendChild(pill);
+            if (!seeded) {
+              cell.classList.add("day-suggested-only");
+            }
+            const sug = document.createElement("div");
+            sug.className = "pto-suggested";
+            sug.textContent = `${suggested.type} ${suggested.hours}h (suggested)`;
+            ptoBlock.appendChild(sug);
           }
 
-          const w = getWeatherForDate(iso);
-          if (w) {
-            const chip = document.createElement("div");
-            chip.className = "temps-chip temps-chip-day";
-            chip.innerHTML = `
-              <span class="label">TC</span>
-              <span class="hi"><span class="symbol">⬆️</span>${w.hi}°F</span>
-              <span class="lo"><span class="symbol">⬇️</span>${w.lo}°F</span>
-              <span class="water"><span class="symbol">🌊</span>${w.water}°F</span>
-            `;
-            tempChipContainer.appendChild(chip);
-          }
-
-          cell.appendChild(dayHeaderLine);
-          if (ptoRow.children.length) {
-            cell.appendChild(ptoRow);
-          }
-          if (tempChipContainer.children.length) {
-            footer.appendChild(tempChipContainer);
+          if (ptoBlock.childElementCount > 0) {
+            cell.appendChild(headerLine);
+            cell.appendChild(ptoBlock);
           } else {
-            footer.appendChild(document.createElement("div"));
+            cell.appendChild(headerLine);
           }
-          footer.appendChild(document.createElement("div"));
-          cell.appendChild(footer);
 
+          cell.appendChild(footerLine);
           daysGrid.appendChild(cell);
         }
 
         body.appendChild(daysGrid);
-        monthCard.appendChild(body);
 
+        // temps strip for May–Oct
+        const monthWeather = weatherWeeks.filter(w => w.month === m.index);
+        if (monthWeather.length) {
+          const strip = document.createElement("div");
+          strip.className = "temps-strip temps-strip-month";
+
+          monthWeather.forEach(w => {
+            const chip = document.createElement("div");
+            chip.className = "temps-chip " + qualityClass(w.q);
+            chip.innerHTML = `
+              <span class="label">${w.label}</span>
+              <span class="hi">⬆️ ${w.hi}°F</span>
+              <span class="lo">⬇️ ${w.lo}°F</span>
+              <span class="water">🌊 ${w.water}°F</span>
+            `;
+            strip.appendChild(chip);
+          });
+
+          body.appendChild(strip);
+        }
+
+        monthCard.appendChild(body);
         root.appendChild(monthCard);
       });
     }
 
     renderCalendar();
 
-    const togglePtoBtn = document.getElementById("togglePtoBtn");
-    const toggleSugBtn = document.getElementById("toggleSugBtn");
-    const toggleTempBtn = document.getElementById("toggleTempBtn");
-    const toggleBalBtn = document.getElementById("toggleBalBtn");
-    const scrollTodayBtn = document.getElementById("scrollTodayBtn");
+    // TOGGLES
+    let showPto = true;
+    let showSug = true;
+    let showTemp = true;
 
-    function toggleClassOn(selector, cls, state) {
-      document.querySelectorAll(selector).forEach(el => {
-        if (state) el.classList.add(cls);
-        else el.classList.remove(cls);
+    document.getElementById("togglePtoBtn").addEventListener("click", e => {
+      showPto = !showPto;
+      e.currentTarget.classList.toggle("btn-toggle-on", showPto);
+      document.querySelectorAll(".pto-main, .pto-sub").forEach(el => {
+        el.style.display = showPto ? "" : "none";
+      });
+    });
+
+    document.getElementById("toggleSugBtn").addEventListener("click", e => {
+      showSug = !showSug;
+      e.currentTarget.classList.toggle("btn-toggle-on", showSug);
+      document.querySelectorAll(".pto-suggested").forEach(el => {
+        el.style.display = showSug ? "" : "none";
+      });
+    });
+
+    document.getElementById("toggleTempBtn").addEventListener("click", e => {
+      showTemp = !showTemp;
+      e.currentTarget.classList.toggle("btn-toggle-on", showTemp);
+      document.querySelectorAll(".temps-strip-month").forEach(el => {
+        el.style.display = showTemp ? "flex" : "none";
+      });
+    });
+
+    document.getElementById("scrollJulyBtn").addEventListener("click", () => {
+      const july = document.getElementById("month-july");
+      if (july) july.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // DETAIL PANEL (AL/SL/RL breakdowns)
+    const detailPanel = document.getElementById("detailPanel");
+
+    function monthName(idx) {
+      return monthsMeta[idx].name;
+    }
+
+    function renderALDetail() {
+      let html = `
+        <div class="detail-title">Annual Leave – Monthly & Pay‑Period Breakdown</div>
+        <div class="detail-tabs">
+          <div class="detail-tab active" data-tab="al-month">By month</div>
+          <div class="detail-tab" data-tab="al-pay">By pay period</div>
+        </div>
+        <div id="detailContent">
+      `;
+
+      // month table
+      html += `<table class="detail-table">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Start AL</th>
+            <th>End AL</th>
+            <th>AL Used</th>
+          </tr>
+        </thead>
+        <tbody>`;
+      Object.keys(monthBalances).forEach(idx => {
+        const m = monthBalances[idx];
+        html += `
+          <tr>
+            <td>${monthName(Number(idx))}</td>
+            <td>${m.startAL.toFixed(1)}</td>
+            <td>${m.endAL.toFixed(1)}</td>
+            <td>${m.usedAL.toFixed(1)}</td>
+          </tr>
+        `;
+      });
+      html += `</tbody></table>
+        <div class="detail-note">
+          Pulls directly from your Calendar View Key: AL start/end and used hours per month.
+        </div>
+      </div>`;
+
+      detailPanel.innerHTML = html;
+      hookALTabs();
+    }
+
+    function hookALTabs() {
+      const tabs = detailPanel.querySelectorAll(".detail-tab");
+      const content = detailPanel.querySelector("#detailContent");
+
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          tabs.forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          const which = tab.getAttribute("data-tab");
+
+          if (which === "al-month") {
+            let html = `<table class="detail-table">
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Start AL</th>
+                  <th>End AL</th>
+                  <th>AL Used</th>
+                </tr>
+              </thead>
+              <tbody>`;
+            Object.keys(monthBalances).forEach(idx => {
+              const m = monthBalances[idx];
+              html += `
+                <tr>
+                  <td>${monthName(Number(idx))}</td>
+                  <td>${m.startAL.toFixed(1)}</td>
+                  <td>${m.endAL.toFixed(1)}</td>
+                  <td>${m.usedAL.toFixed(1)}</td>
+                </tr>`;
+            });
+            html += `</tbody></table>
+              <div class="detail-note">
+                Month‑level rollup matching the Calendar View Key in your workbook.
+              </div>`;
+            content.innerHTML = html;
+          } else {
+            let html = `<table class="detail-table">
+              <thead>
+                <tr>
+                  <th>Pay date</th>
+                  <th>AL earned</th>
+                  <th>AL used</th>
+                  <th>AL balance</th>
+                </tr>
+              </thead>
+              <tbody>`;
+            paystubRows.forEach(r => {
+              html += `
+                <tr>
+                  <td>${r.date}</td>
+                  <td>${r.alEarn.toFixed(1)}</td>
+                  <td>${r.alUsed.toFixed(1)}</td>
+                  <td>${r.alBal.toFixed(1)}</td>
+                </tr>`;
+            });
+            html += `</tbody></table>
+              <div class="detail-note">
+                Biweekly accrual and usage (6h AL per period, plus seeded usage) exactly as in Paystub View.
+              </div>`;
+            content.innerHTML = html;
+          }
+        });
       });
     }
 
-    let showPto = true;
-    let showSuggested = true;
-    let showTemps = true;
-    let showBalances = true;
+    function renderSLDetail() {
+      let html = `
+        <div class="detail-title">Sick Leave – Monthly & Pay‑Period Breakdown</div>
+        <div class="detail-tabs">
+          <div class="detail-tab active" data-tab="sl-month">By month</div>
+          <div class="detail-tab" data-tab="sl-pay">By pay period</div>
+        </div>
+        <div id="detailContent">
+      `;
 
-    togglePtoBtn.addEventListener("click", () => {
-      showPto = !showPto;
-      togglePtoBtn.classList.toggle("btn-toggle-on", showPto);
-      document.querySelectorAll(".day-pto-pill").forEach(el => {
-        if (!el.classList.contains("suggested") || showSuggested) {
-          el.style.display = showPto ? "inline-flex" : "none";
-        }
+      html += `<table class="detail-table">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Start SL</th>
+            <th>End SL</th>
+            <th>SL Used</th>
+          </tr>
+        </thead>
+        <tbody>`;
+      Object.keys(monthBalances).forEach(idx => {
+        const m = monthBalances[idx];
+        html += `
+          <tr>
+            <td>${monthName(Number(idx))}</td>
+            <td>${m.startSL.toFixed(2)}</td>
+            <td>${m.endSL.toFixed(2)}</td>
+            <td>${m.usedSL.toFixed(1)}</td>
+          </tr>`;
+      });
+      html += `</tbody></table>
+        <div class="detail-note">
+          SL grows by 4h each pay period in 2026 with no seeded usage.
+        </div>
+      </div>`;
+
+      detailPanel.innerHTML = html;
+
+      const tabs = detailPanel.querySelectorAll(".detail-tab");
+      const content = detailPanel.querySelector("#detailContent");
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          tabs.forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          const which = tab.getAttribute("data-tab");
+          if (which === "sl-month") {
+            let html = `<table class="detail-table">
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Start SL</th>
+                  <th>End SL</th>
+                  <th>SL Used</th>
+                </tr>
+              </thead>
+              <tbody>`;
+            Object.keys(monthBalances).forEach(idx => {
+              const m = monthBalances[idx];
+              html += `
+                <tr>
+                  <td>${monthName(Number(idx))}</td>
+                  <td>${m.startSL.toFixed(2)}</td>
+                  <td>${m.endSL.toFixed(2)}</td>
+                  <td>${m.usedSL.toFixed(1)}</td>
+                </tr>`;
+            });
+            html += `</tbody></table>
+              <div class="detail-note">
+                This matches the SL columns in your Calendar View Key.
+              </div>`;
+            content.innerHTML = html;
+          } else {
+            let html = `<table class="detail-table">
+              <thead>
+                <tr>
+                  <th>Pay date</th>
+                  <th>SL earned</th>
+                  <th>SL used</th>
+                  <th>SL balance</th>
+                </tr>
+              </thead>
+              <tbody>`;
+            paystubRows.forEach(r => {
+              html += `
+                <tr>
+                  <td>${r.date}</td>
+                  <td>${r.slEarn.toFixed(1)}</td>
+                  <td>${r.slUsed.toFixed(1)}</td>
+                  <td>${r.slBal.toFixed(2)}</td>
+                </tr>`;
+            });
+            html += `</tbody></table>
+              <div class="detail-note">
+                Biweekly SL accrual of 4h per period with no usage applied in 2026.
+              </div>`;
+            content.innerHTML = html;
+          }
+        });
+      });
+    }
+
+    function renderRLDetail() {
+      detailPanel.innerHTML = `
+        <div class="detail-title">Reward Leave – Static Balance</div>
+        <p style="font-size:0.8rem;margin-bottom:0.4rem;">
+          Reward Leave starts and ends at 24.0 hours in 2026 with no seeded usage in your tracker.
+        </p>
+        <table class="detail-table">
+          <thead>
+            <tr>
+              <th>Period</th>
+              <th>Start RL</th>
+              <th>RL Used</th>
+              <th>End RL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Full year 2026</td>
+              <td>24.0</td>
+              <td>0.0</td>
+              <td>24.0</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="detail-note">
+          Once you log RL usage, this panel can be expanded to show month or pay‑period level changes.
+        </div>
+      `;
+    }
+
+    function setActiveLeave(leave) {
+      document.querySelectorAll(".balance-card").forEach(card => {
+        card.classList.toggle("active", card.getAttribute("data-leave") === leave);
+      });
+      if (leave === "AL") renderALDetail();
+      else if (leave === "SL") renderSLDetail();
+      else renderRLDetail();
+    }
+
+    document.querySelectorAll(".balance-card").forEach(card => {
+      card.addEventListener("click", () => {
+        setActiveLeave(card.getAttribute("data-leave"));
       });
     });
 
-    toggleSugBtn.addEventListener("click", () => {
-      showSuggested = !showSuggested;
-      toggleSugBtn.classList.toggle("btn-toggle-on", showSuggested);
-      document.querySelectorAll(".day-pto-pill.suggested").forEach(el => {
-        el.style.display = (showPto && showSuggested) ? "inline-flex" : "none";
-      });
-    });
-
-    toggleTempBtn.addEventListener("click", () => {
-      showTemps = !showTemps;
-      toggleTempBtn.classList.toggle("btn-toggle-on", showTemps);
-      document.querySelectorAll(".temps-chip-day").forEach(el => {
-        el.style.display = showTemps ? "inline-flex" : "none";
-      });
-    });
-
-    toggleBalBtn.addEventListener("click", () => {
-      showBalances = !showBalances;
-      toggleBalBtn.classList.toggle("btn-toggle-on", showBalances);
-      document.querySelectorAll(".month-balance-pill").forEach(el => {
-        el.style.display = showBalances ? "inline-flex" : "none";
-      });
-    });
-
-    scrollTodayBtn.addEventListener("click", () => {
-      const julyCard = document.getElementById("month-6");
-      if (julyCard) {
-        julyCard.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    });
+    // default view: AL
+    setActiveLeave("AL");
   </script>
 </body>
 </html>
