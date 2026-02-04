@@ -1,1273 +1,1257 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.3">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8">
+  <title>2026 PTO & Boating Planner</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-alt: #020617;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.14);
+      --accent-strong: rgba(56,189,248,0.35);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --warning: #fbbf24;
+      --success: #4ade80;
+      --border: #1f2937;
+      --booked: #0ea5e9;
+      --suggested: #fbbf24;
+      --grid-line: #111827;
+      --today: #22c55e;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+              "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 1.5rem;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 52%, #000 100%);
+      color: var(--text);
+      font-family: var(--font);
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    p {
+      margin: 0.15rem 0;
+    }
+
+    .app-shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) minmax(260px, 1.5fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 960px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #111827 0, #020617 55%, #000 100%);
+      border-radius: 0.9rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--border);
+      box-shadow:
+        0 24px 80px rgba(15,23,42,0.7),
+        0 0 0 1px rgba(15,23,42,0.9);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .card-header-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.12rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(148,163,184,0.35);
+      color: var(--muted);
+    }
+
+    .pill-dot {
+      width: 0.38rem;
+      height: 0.38rem;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(56,189,248,0.14);
+    }
+
+    .pill-strong {
+      border-color: var(--accent);
+      background: rgba(15,23,42,0.9);
+      color: #e0f2fe;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .muted-strong {
+      color: #e5e7eb;
+      font-size: 0.8rem;
+    }
+
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: radial-gradient(circle at top, #1e293b 0, #020617 62%);
+      color: var(--text);
+      padding: 0.22rem 0.7rem;
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+      transition: background 0.14s ease, border-color 0.14s ease, transform 0.08s ease;
+    }
+
+    .btn span.icon {
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(56,189,248,0.19), rgba(129,140,248,0.26));
+      box-shadow:
+        0 0 0 1px rgba(56,189,248,0.25),
+        0 18px 40px rgba(15,23,42,0.9);
+    }
+
+    .btn:hover {
+      border-color: rgba(148,163,184,0.8);
+      transform: translateY(-0.5px);
+      background: radial-gradient(circle at top, #1f2937 0, #020617 70%);
+    }
+
+    .btn-primary:hover {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(56,189,248,0.26), rgba(129,140,248,0.34));
+    }
+
+    .btn-secondary {
+      background: rgba(15,23,42,0.7);
+    }
+
+    .btn-toggle-on {
+      border-color: var(--accent);
+      background: rgba(56,189,248,0.16);
+      color: #e0f2fe;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      margin-top: 0.45rem;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(31,41,55,0.8);
+    }
+
+    .legend-swatch {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 0.18rem;
+      border: 1px solid rgba(15,23,42,0.9);
+    }
+
+    .swatch-booked {
+      background: linear-gradient(135deg, #0ea5e9, #22c55e);
+    }
+
+    .swatch-suggested {
+      background: linear-gradient(135deg, #facc15, #fb923c);
+    }
+
+    .swatch-weather {
+      background: linear-gradient(135deg, #22d3ee, #6366f1);
+    }
+
+    .swatch-balance {
+      background: linear-gradient(135deg, #4ade80, #22c55e);
+    }
+
+    .swatch-low {
+      background: linear-gradient(135deg, #f97373, #f97316);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 1200px) {
+      .calendar-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 800px) {
+      .calendar-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .month-card {
+      background: radial-gradient(circle at top left, #020617 0, #020617 52%, #000 100%);
+      border-radius: 0.8rem;
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.6rem 0.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .month-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.4rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .month-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    .month-subtitle {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .balance-pill {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(52,211,153,0.5);
+      background: rgba(22,101,52,0.18);
+      color: #bbf7d0;
+      display: inline-flex;
+      gap: 0.28rem;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .balance-pill span {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.12rem;
+    }
+
+    .balance-pill .label {
+      color: #a7f3d0;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .month-body {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 0.3rem;
+    }
+
+    .weekday-row {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.1rem;
+      font-size: 0.64rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .weekday-row div {
+      text-align: center;
+      padding-bottom: 0.1rem;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.08rem;
+      font-size: 0.7rem;
+    }
+
+    .day-cell {
+      min-height: 50px;
+      border-radius: 0.42rem;
+      border: 1px solid var(--grid-line);
+      padding: 0.18rem 0.16rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.08rem;
+      position: relative;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.95) 0, #020617 70%);
+      overflow: hidden;
+    }
+
+    .day-empty {
+      background: radial-gradient(circle at top, #020617 0, #020617 70%);
+      border-style: dashed;
+      border-color: #020617;
+    }
+
+    .day-header-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .day-number {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .day-dot {
+      width: 0.32rem;
+      height: 0.32rem;
+      border-radius: 999px;
+      background: rgba(148,163,184,0.7);
+    }
+
+    .day-today .day-dot {
+      background: var(--today);
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.26);
+    }
+
+    .day-booked {
+      border-color: rgba(56,189,248,0.9);
+      background: radial-gradient(circle at top, rgba(56,189,248,0.22) 0, #020617 72%);
+      box-shadow:
+        0 0 0 1px rgba(56,189,248,0.3),
+        0 0 16px rgba(56,189,248,0.35);
+    }
+
+    .day-suggested {
+      border-color: rgba(250,204,21,0.9);
+      background: radial-gradient(circle at top, rgba(250,204,21,0.18) 0, #020617 72%);
+      box-shadow:
+        0 0 0 1px rgba(250,204,21,0.3),
+        0 0 16px rgba(251,191,36,0.28);
+    }
+
+    .day-pto-pill {
+      font-size: 0.69rem;
+      padding: 0.05rem 0.35rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: rgba(15,23,42,0.82);
+      border: 1px solid rgba(148,163,184,0.55);
+      color: #e5e7eb;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    .day-pto-pill span.type {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .day-pto-pill span.meta {
+      color: var(--muted);
+      font-size: 0.66rem;
+    }
+
+    .day-pto-pill.suggested {
+      border-color: rgba(250,204,21,0.85);
+      background: rgba(250,204,21,0.12);
+      color: #fef9c3;
+    }
+
+    .day-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 0.25rem;
+    }
+
+    .temps-chip {
+      font-size: 0.64rem;
+      padding: 0.05rem 0.28rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: rgba(15,23,42,0.9);
+      color: var(--muted-strong);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    .temps-chip span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.14rem;
+    }
+
+    .temps-chip span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.6rem;
+      color: #cbd5f5;
+    }
+
+    .temps-chip span.symbol {
+      font-size: 0.72rem;
+    }
+
+    .temps-chip.badge {
+      border-color: rgba(56,189,248,0.65);
+      background: rgba(15,23,42,0.95);
+    }
+
+    .temps-chip .quality {
+      font-size: 0.62rem;
+      color: #a5b4fc;
+    }
+
+    .temps-chip .water {
+      color: #22d3ee;
+    }
+
+    .temps-chip .hi {
+      color: #f97316;
+    }
+
+    .temps-chip .lo {
+      color: #38bdf8;
+    }
+
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .metric-row {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+
+    .metric-card {
+      flex: 1;
+      border-radius: 0.7rem;
+      padding: 0.45rem 0.55rem;
+      border: 1px solid rgba(30,64,175,0.8);
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 66%);
+    }
+
+    .metric-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+      margin-bottom: 0.12rem;
+    }
+
+    .metric-value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .metric-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .divider {
+      border-top: 1px dashed rgba(55,65,81,0.8);
+      margin: 0.4rem 0;
+    }
+
+    .week-weather-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-top: 0.3rem;
+    }
+
+    .week-weather-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.3rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(31,41,55,0.8);
+      background: radial-gradient(circle at left, rgba(15,23,42,0.95) 0, #020617 72%);
+      font-size: 0.7rem;
+    }
+
+    .week-weather-label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.08rem;
+    }
+
+    .week-weather-title {
+      font-size: 0.74rem;
+      color: #e5e7eb;
+    }
+
+    .week-weather-dates {
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .week-weather-temps {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+
+    .badge {
+      padding: 0.02rem 0.32rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: 0.62rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.18rem;
+    }
+
+    .badge.excellent {
+      border-color: rgba(52,211,153,0.8);
+      color: #bbf7d0;
+      background: rgba(22,101,52,0.35);
+    }
+
+    .badge.very-good {
+      border-color: rgba(56,189,248,0.8);
+      color: #e0f2fe;
+      background: rgba(15,23,42,0.8);
+    }
+
+    .badge.good {
+      border-color: rgba(251,191,36,0.8);
+      color: #fef3c7;
+      background: rgba(120,53,15,0.4);
+    }
+
+    .badge.fair {
+      border-color: rgba(248,113,113,0.8);
+      color: #fee2e2;
+      background: rgba(127,29,29,0.5);
+    }
+
+    .badge-poi {
+      border-color: rgba(251,191,36,0.9);
+      color: #fef9c3;
+      background: rgba(120,53,15,0.55);
+    }
+
+    .hint {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .hint strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;2026 PTO &amp; Boating Planner&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg: #0b1220;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg-alt: #020617;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--card: #020617;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--accent: #38bdf8;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--accent-soft: rgba(56,189,248,0.14);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--accent-strong: rgba(56,189,248,0.35);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--text: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--muted: #9ca3af;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--danger: #f97373;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--warning: #fbbf24;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--success: #4ade80;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--border: #1f2937;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--booked: #0ea5e9;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--suggested: #fbbf24;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--grid-line: #111827;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--today: #22c55e;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",</p>
-<p class="p1"><span class="Apple-converted-space">              </span>"Segoe UI", sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>* {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top, #1e293b 0, #020617 52%, #000 100%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: var(--font);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1, h2, h3, h4 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.02em;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.6rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>p {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0.15rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.app-shell {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 1320px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: minmax(0, 4fr) minmax(260px, 1.5fr);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 960px) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.app-shell {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top left, #111827 0, #020617 55%, #000 100%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.9rem 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow:</p>
-<p class="p1"><span class="Apple-converted-space">        </span>0 24px 80px rgba(15,23,42,0.7),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>0 0 0 1px rgba(15,23,42,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card-header {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: baseline;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.65rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card-header-main {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.pill {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.12rem 0.55rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.72rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.14em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(15,23,42,0.95);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(148,163,184,0.35);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.pill-dot {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 0.38rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 0.38rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 0 0 4px rgba(56,189,248,0.14);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.pill-strong {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(15,23,42,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e0f2fe;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.muted {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.78rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.muted-strong {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.controls-bar {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(148,163,184,0.4);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top, #1e293b 0, #020617 62%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.22rem 0.7rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.78rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: background 0.14s ease, border-color 0.14s ease, transform 0.08s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn span.icon {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-primary {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, rgba(56,189,248,0.19), rgba(129,140,248,0.26));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow:</p>
-<p class="p1"><span class="Apple-converted-space">        </span>0 0 0 1px rgba(56,189,248,0.25),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>0 18px 40px rgba(15,23,42,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(148,163,184,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(-0.5px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top, #1f2937 0, #020617 70%);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-primary:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, rgba(56,189,248,0.26), rgba(129,140,248,0.34));</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-secondary {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(15,23,42,0.7);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-toggle-on {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(56,189,248,0.16);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e0f2fe;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.legend {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 0.45rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.legend-item {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.32rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.1rem 0.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(15,23,42,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(31,41,55,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.legend-swatch {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 0.18rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(15,23,42,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swatch-booked {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #0ea5e9, #22c55e);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swatch-suggested {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #facc15, #fb923c);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swatch-weather {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #22d3ee, #6366f1);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swatch-balance {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #4ade80, #22c55e);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swatch-low {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #f97373, #f97316);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.calendar-grid {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(3, minmax(0, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 1200px) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.calendar-grid {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: repeat(2, minmax(0, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 800px) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.calendar-grid {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.month-card {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top left, #020617 0, #020617 52%, #000 100%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 0.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.55rem 0.6rem 0.65rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.35rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.month-header {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: baseline;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.35rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.month-title {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.06em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.month-subtitle {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.78rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.balance-pill {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.7rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.15rem 0.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(52,211,153,0.5);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(22,101,52,0.18);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #bbf7d0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.28rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>white-space: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.balance-pill span {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: baseline;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.12rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.balance-pill .label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #a7f3d0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.66rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.1em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.month-body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-rows: auto auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.3rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.weekday-row {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(7, minmax(0, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.64rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.12em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.weekday-row div {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 0.1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.days-grid {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(7, minmax(0, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.08rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.7rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-cell {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 0.42rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--grid-line);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.18rem 0.16rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.08rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top, rgba(15,23,42,0.95) 0, #020617 70%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-empty {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top, #020617 0, #020617 70%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-style: dashed;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: #020617;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-header-line {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-number {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-dot {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 0.32rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 0.32rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(148,163,184,0.7);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-today .day-dot {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--today);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 0 0 4px rgba(34,197,94,0.26);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-booked {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(56,189,248,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top, rgba(56,189,248,0.22) 0, #020617 72%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow:</p>
-<p class="p1"><span class="Apple-converted-space">        </span>0 0 0 1px rgba(56,189,248,0.3),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>0 0 16px rgba(56,189,248,0.35);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-suggested {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(250,204,21,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top, rgba(250,204,21,0.18) 0, #020617 72%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow:</p>
-<p class="p1"><span class="Apple-converted-space">        </span>0 0 0 1px rgba(250,204,21,0.3),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>0 0 16px rgba(251,191,36,0.28);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-pto-pill {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.69rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.05rem 0.35rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(15,23,42,0.82);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(148,163,184,0.55);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>white-space: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-pto-pill span.type {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.04em;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-pto-pill span.meta {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.66rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-pto-pill.suggested {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(250,204,21,0.85);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(250,204,21,0.12);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #fef9c3;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.day-footer {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: flex-end;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.temps-chip {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.64rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.05rem 0.28rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(148,163,184,0.45);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(15,23,42,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted-strong);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>white-space: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.temps-chip span {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.14rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.temps-chip span.label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.12em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.6rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #cbd5f5;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.temps-chip span.symbol {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.72rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.temps-chip.badge {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(56,189,248,0.65);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(15,23,42,0.95);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.temps-chip .quality {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.62rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #a5b4fc;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.temps-chip .water {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #22d3ee;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.temps-chip .hi {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #f97316;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.temps-chip .lo {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #38bdf8;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.side-panel {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.7rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.metric-row {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 0.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.metric-card {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 0.7rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.45rem 0.55rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(30,64,175,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at top left, #1e293b 0, #020617 66%);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.metric-label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.68rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.12em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #a5b4fc;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.12rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.metric-value {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.05rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.metric-sub {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.7rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.divider {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px dashed rgba(55,65,81,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0.4rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.week-weather-list {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.35rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 0.3rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.week-weather-row {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.25rem 0.3rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 0.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(31,41,55,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle at left, rgba(15,23,42,0.95) 0, #020617 72%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.7rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.week-weather-label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.08rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.week-weather-title {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.74rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.week-weather-dates {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.68rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.week-weather-temps {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>white-space: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.02rem 0.32rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(148,163,184,0.6);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.62rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.18rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.excellent {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(52,211,153,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #bbf7d0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(22,101,52,0.35);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.very-good {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(56,189,248,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e0f2fe;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(15,23,42,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.good {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(251,191,36,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #fef3c7;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(120,53,15,0.4);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.fair {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(248,113,113,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #fee2e2;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(127,29,29,0.5);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge-poi {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(251,191,36,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #fef9c3;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(120,53,15,0.55);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hint {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.7rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hint strong {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="app-shell"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;main class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card-header-main"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="pill pill-strong"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="pill-dot"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>2026 PTO &amp;amp; BOATING CALENDAR</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;h1&gt;2026 PTO Calendar &amp;amp; Traverse City Weeks&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="muted"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>Seeded PTO, suggested boating weeks, monthly balances, and weekly ⬆️/⬇️ temps with 🌊 water temps for Traverse City.</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="muted-strong" style="text-align:right;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;Traverse City, MI focus • May–Oct weather bands&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div style="font-size:0.7rem; color:var(--muted);"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>Air highs/lows and water are typical weekly averages.</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="controls-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-secondary btn-toggle-on" id="togglePtoBtn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="icon"&gt;🧾&lt;/span&gt;&lt;span&gt;PTO details&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-secondary btn-toggle-on" id="toggleSugBtn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="icon"&gt;✨&lt;/span&gt;&lt;span&gt;Suggested days&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-secondary btn-toggle-on" id="toggleTempBtn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="icon"&gt;🌡️&lt;/span&gt;&lt;span&gt;Week temps&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-secondary btn-toggle-on" id="toggleBalBtn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="icon"&gt;📊&lt;/span&gt;&lt;span&gt;Monthly balances&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-primary" id="scrollTodayBtn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="icon"&gt;📅&lt;/span&gt;&lt;span&gt;Jump to July (prime)&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="legend"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="legend-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="legend-swatch swatch-booked"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;Booked PTO (seeded) – AL 1.3–8h&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="legend-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="legend-swatch swatch-suggested"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;Suggested PTO – boating‑optimized&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="legend-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="legend-swatch swatch-weather"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;Weekly ⬆️ high / ⬇️ low / 🌊 water &amp;amp; quality&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="legend-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="legend-swatch swatch-balance"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;Monthly AL / SL / RL balance band&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="calendar-grid" id="calendarRoot"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Months injected by JS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;aside class="side-panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;section class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="card-header-main"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="pill"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="pill-dot"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>CURRENT BALANCES SNAPSHOT</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 style="font-size:1rem;"&gt;2026 Leave Balances&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="metric-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="metric-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-label"&gt;Annual Leave (AL)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-value"&gt;125.2 h&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-sub"&gt;End of year balance (Dec 18)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="metric-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-label"&gt;Sick Leave (SL)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-value"&gt;158.25 h&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-sub"&gt;No seeded SL usage in 2026&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="metric-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="metric-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-label"&gt;Reward Leave (RL)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-value"&gt;24.0 h&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-sub"&gt;Fixed, no accrual or usage planned&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="metric-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-label"&gt;AL low point&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-value"&gt;53.2 h&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metric-sub"&gt;Late August before Sep accrual&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="divider"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="hint"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>This view uses your 2026 paystub‑based balances and seeded PTO as of 12/18/26. Use the toggles to focus on PTO, suggested boating weeks, or temps.</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;section class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="card-header-main"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="pill"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="pill-dot"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>PRIME BOATING WINDOWS</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 style="font-size:1rem;"&gt;Top Weather Weeks (Traverse City)&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="week-weather-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- Highlight a few prime/shoulder weeks --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="week-weather-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-label"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-title"&gt;Week 9 – July 1–7&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-dates"&gt;Peak summer heat, great water temps.&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-temps"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge excellent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;⬆️ 81°F&lt;/span&gt;&lt;span&gt;⬇️ 58°F&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge excellent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;🌊 69°F&lt;/span&gt;&lt;span&gt;Excellent&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="week-weather-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-label"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-title"&gt;Week 10 – July 8–14&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-dates"&gt;Highest air temps of the year.&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-temps"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge excellent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;⬆️ 82°F&lt;/span&gt;&lt;span&gt;⬇️ 59°F&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge excellent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;🌊 71°F&lt;/span&gt;&lt;span&gt;Excellent&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="week-weather-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-label"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-title"&gt;Week 11 – July 15–21&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-dates"&gt;Lake at warmest (~72°F).&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-temps"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge excellent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;⬆️ 82°F&lt;/span&gt;&lt;span&gt;⬇️ 59°F&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge excellent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;🌊 72°F&lt;/span&gt;&lt;span&gt;Excellent&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="week-weather-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-label"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-title"&gt;Week 13 – Aug 1–7&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-dates"&gt;Early August still hot, perfect swimming.&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-temps"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge excellent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;⬆️ 79°F&lt;/span&gt;&lt;span&gt;⬇️ 58°F&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge excellent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;🌊 70°F&lt;/span&gt;&lt;span&gt;Excellent&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="week-weather-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-label"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-title"&gt;Week 17 – Sept 1–7&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="week-weather-dates"&gt;Bonus summer, water still warm.&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-weather-temps"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge very-good"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;⬆️ 74°F&lt;/span&gt;&lt;span&gt;⬇️ 53°F&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="badge very-good"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;🌊 66°F&lt;/span&gt;&lt;span&gt;Very Good&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="divider"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="hint"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>Bluer chips = better boating conditions. Use this panel to pick between July peak, August warmth, and September shoulder weeks.</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/aside&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Months meta</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const monthsMeta = [</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "January", index: 0, days: 31, startWeekday: 4 }, <span class="Apple-converted-space">  </span>// Jan 1, 2026 is Thursday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "February", index: 1, days: 28, startWeekday: 0 }, // Sunday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "March", index: 2, days: 31, startWeekday: 0 },<span class="Apple-converted-space">    </span>// Sunday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "April", index: 3, days: 30, startWeekday: 3 },<span class="Apple-converted-space">    </span>// Wednesday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "May", index: 4, days: 31, startWeekday: 5 },<span class="Apple-converted-space">      </span>// Friday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "June", index: 5, days: 30, startWeekday: 1 }, <span class="Apple-converted-space">    </span>// Monday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "July", index: 6, days: 31, startWeekday: 3 }, <span class="Apple-converted-space">    </span>// Wednesday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "August", index: 7, days: 31, startWeekday: 6 }, <span class="Apple-converted-space">  </span>// Saturday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "September", index: 8, days: 30, startWeekday: 2 },// Tuesday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "October", index: 9, days: 31, startWeekday: 4 },<span class="Apple-converted-space">  </span>// Thursday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "November", index: 10, days: 30, startWeekday: 0 },// Sunday</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ name: "December", index: 11, days: 31, startWeekday: 2 } // Tuesday</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Calendar View Key monthly balances (AL/SL/RL) from Excel</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const monthBalances = {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>0: { startAL: 80.5, endAL: 80.5, usedAL: 0.0, startSL: 58.25, endSL: 58.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>1: { startAL: 80.5, endAL: 85.2, usedAL: 1.3, startSL: 58.25, endSL: 62.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>2: { startAL: 85.2, endAL: 97.2, usedAL: 0.0, startSL: 62.25, endSL: 70.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>3: { startAL: 97.2, endAL: 77.2, usedAL: 32.0, startSL: 70.25, endSL: 78.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>4: { startAL: 77.2, endAL: 89.2, usedAL: 0.0, startSL: 78.25, endSL: 86.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>5: { startAL: 89.2, endAL: 93.2, usedAL: 8.0, startSL: 86.25, endSL: 94.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>6: { startAL: 93.2, endAL: 57.2, usedAL: 48.0, startSL: 94.25, endSL: 102.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>7: { startAL: 57.2, endAL: 53.2, usedAL: 16.0, startSL: 102.25, endSL: 110.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>8: { startAL: 53.2, endAL: 65.2, usedAL: 0.0, startSL: 110.25, endSL: 118.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>9: { startAL: 65.2, endAL: 77.2, usedAL: 0.0, startSL: 118.25, endSL: 126.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>10:{ startAL: 77.2, endAL: 89.2, usedAL: 0.0, startSL: 126.25, endSL: 134.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>11:{ startAL: 89.2, endAL: 101.2, usedAL: 0.0, startSL: 134.25, endSL: 142.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Seeded PTO dates (existing AL) from Seed Leave Dates sheet</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const seededPto = [</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-02-09", type: "AL", hours: 1.3 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-04-02", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-04-03", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-04-06", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-04-07", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-29", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-06", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-07", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-08", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-09", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-10", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-17", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-14", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-28", type: "AL", hours: 8.0 }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Suggested PTO from Suggested Days OFF (only those that are explicit date blocks)</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const suggestedPto = [</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Rank 1 – Mon 7/20–Fri 7/24</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-20", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-21", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-22", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-23", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-07-24", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Rank 4 – Mon 8/3–Fri 8/7</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-03", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-04", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-05", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-06", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-07", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Rank 5 – Mon 8/10–Fri 8/14 (note: 8/14 seeded)</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-10", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-11", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-12", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-13", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Rank 6 – Mon 6/15–Fri 6/19</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-15", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-16", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-17", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-18", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-19", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Rank 8 – optional Fri 6/26 and Tue 6/30</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-26", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-30", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Rank 9 – Mon 8/17–Fri 8/21</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-17", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-18", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-19", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-20", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-21", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Rank 10 – assume full week after Labor Day: Mon 9/7–Fri 9/11</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-09-07", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-09-08", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-09-09", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-09-10", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-09-11", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Rank 11 – Wed 8/26–Fri 8/28</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-26", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-08-27", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// 12 – Fri 9/11 already covered in Rank 10 range</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// 13 – Mon 6/8–Fri 6/12</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-08", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-09", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-10", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-11", type: "AL", hours: 8.0 },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ date: "2026-06-12", type: "AL", hours: 8.0 }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Weather weeks May–Oct</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const weatherWeeks = [</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 1,<span class="Apple-converted-space">  </span>monthRange: "May", <span class="Apple-converted-space">  </span>dates: "May 1–7", <span class="Apple-converted-space">  </span>hi: 66, lo: 43, water: 45, quality: "Fair" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 2,<span class="Apple-converted-space">  </span>monthRange: "May", <span class="Apple-converted-space">  </span>dates: "May 8–14",<span class="Apple-converted-space">  </span>hi: 67, lo: 44, water: 48, quality: "Fair" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 3,<span class="Apple-converted-space">  </span>monthRange: "May", <span class="Apple-converted-space">  </span>dates: "May 15–21", hi: 68, lo: 44, water: 52, quality: "Good" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 4,<span class="Apple-converted-space">  </span>monthRange: "May", <span class="Apple-converted-space">  </span>dates: "May 22–31", hi: 70, lo: 46, water: 55, quality: "Good" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 5,<span class="Apple-converted-space">  </span>monthRange: "June",<span class="Apple-converted-space">  </span>dates: "Jun 1–7", <span class="Apple-converted-space">  </span>hi: 74, lo: 50, water: 58, quality: "Very Good" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 6,<span class="Apple-converted-space">  </span>monthRange: "June",<span class="Apple-converted-space">  </span>dates: "Jun 8–14",<span class="Apple-converted-space">  </span>hi: 76, lo: 52, water: 61, quality: "Very Good" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 7,<span class="Apple-converted-space">  </span>monthRange: "June",<span class="Apple-converted-space">  </span>dates: "Jun 15–21", hi: 77, lo: 53, water: 64, quality: "Excellent" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 8,<span class="Apple-converted-space">  </span>monthRange: "June",<span class="Apple-converted-space">  </span>dates: "Jun 22–30", hi: 76, lo: 53, water: 67, quality: "Excellent" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 9,<span class="Apple-converted-space">  </span>monthRange: "July",<span class="Apple-converted-space">  </span>dates: "Jul 1–7", <span class="Apple-converted-space">  </span>hi: 81, lo: 58, water: 69, quality: "Excellent" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 10, monthRange: "July",<span class="Apple-converted-space">  </span>dates: "Jul 8–14",<span class="Apple-converted-space">  </span>hi: 82, lo: 59, water: 71, quality: "Excellent" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 11, monthRange: "July",<span class="Apple-converted-space">  </span>dates: "Jul 15–21", hi: 82, lo: 59, water: 72, quality: "Excellent" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 12, monthRange: "July",<span class="Apple-converted-space">  </span>dates: "Jul 22–31", hi: 79, lo: 58, water: 71, quality: "Excellent" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 13, monthRange: "August",dates: "Aug 1–7", <span class="Apple-converted-space">  </span>hi: 79, lo: 58, water: 70, quality: "Excellent" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 14, monthRange: "August",dates: "Aug 8–14",<span class="Apple-converted-space">  </span>hi: 79, lo: 57, water: 71, quality: "Excellent" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 15, monthRange: "August",dates: "Aug 15–21", hi: 79, lo: 57, water: 69, quality: "Excellent" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 16, monthRange: "August",dates: "Aug 22–31", hi: 78, lo: 56, water: 67, quality: "Very Good" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 17, monthRange: "September",dates: "Sep 1–7", hi: 74, lo: 53, water: 66, quality: "Very Good" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 18, monthRange: "September",dates: "Sep 8–14", hi: 72, lo: 52, water: 65, quality: "Very Good" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 19, monthRange: "September",dates: "Sep 15–21",hi: 71, lo: 51, water: 64, quality: "Good" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 20, monthRange: "September",dates: "Sep 22–30",hi: 70, lo: 50, water: 62, quality: "Good" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 21, monthRange: "October",dates: "Oct 1–7",<span class="Apple-converted-space">  </span>hi: 59, lo: 42, water: 61, quality: "Fair" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 22, monthRange: "October",dates: "Oct 8–14", hi: 58, lo: 41, water: 57, quality: "Fair" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 23, monthRange: "October",dates: "Oct 15–21",hi: 57, lo: 40, water: 56, quality: "Fair" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ week: 24, monthRange: "October",dates: "Oct 22–31",hi: 55, lo: 40, water: 53, quality: "Fair" }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Map each calendar date to which weather week applies (approx)</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function getWeatherForDate(dateStr) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const d = new Date(dateStr);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const month = d.getMonth();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const day = d.getDate();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Only May–Oct have weather rows</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (month &lt; 4 || month &gt; 9) return null;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const label = (month === 4) ? "May"</p>
-<p class="p1"><span class="Apple-converted-space">                   </span>: (month === 5) ? "June"</p>
-<p class="p1"><span class="Apple-converted-space">                   </span>: (month === 6) ? "July"</p>
-<p class="p1"><span class="Apple-converted-space">                   </span>: (month === 7) ? "August"</p>
-<p class="p1"><span class="Apple-converted-space">                   </span>: (month === 8) ? "September"</p>
-<p class="p1"><span class="Apple-converted-space">                   </span>: "October";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// approximate mapping within each month by day ranges</p>
-<p class="p1"><span class="Apple-converted-space">      </span>let weekCandidates = weatherWeeks.filter(w =&gt; w.monthRange === label);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!weekCandidates.length) return null;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// pick by day</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (label === "May") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 7)<span class="Apple-converted-space">      </span>return weekCandidates[0];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 14) <span class="Apple-converted-space">    </span>return weekCandidates[1];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 21) <span class="Apple-converted-space">    </span>return weekCandidates[2];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return weekCandidates[3];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else if (label === "June") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 7)<span class="Apple-converted-space">      </span>return weekCandidates[0];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 14) <span class="Apple-converted-space">    </span>return weekCandidates[1];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 21) <span class="Apple-converted-space">    </span>return weekCandidates[2];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return weekCandidates[3];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else if (label === "July") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 7)<span class="Apple-converted-space">      </span>return weekCandidates[0];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 14) <span class="Apple-converted-space">    </span>return weekCandidates[1];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 21) <span class="Apple-converted-space">    </span>return weekCandidates[2];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return weekCandidates[3];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else if (label === "August") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 7)<span class="Apple-converted-space">      </span>return weekCandidates[0];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 14) <span class="Apple-converted-space">    </span>return weekCandidates[1];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 21) <span class="Apple-converted-space">    </span>return weekCandidates[2];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return weekCandidates[3];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else if (label === "September") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 7)<span class="Apple-converted-space">      </span>return weekCandidates[0];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 14) <span class="Apple-converted-space">    </span>return weekCandidates[1];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 21) <span class="Apple-converted-space">    </span>return weekCandidates[2];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return weekCandidates[3];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else if (label === "October") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 7)<span class="Apple-converted-space">      </span>return weekCandidates[0];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 14) <span class="Apple-converted-space">    </span>return weekCandidates[1];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (day &lt;= 21) <span class="Apple-converted-space">    </span>return weekCandidates[2];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return weekCandidates[3];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return null;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function formatBalShort(bal) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!bal) return "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const { startAL, endAL, usedAL } = bal;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return `AL ${startAL.toFixed(1)}→${endAL.toFixed(1)} (${usedAL.toFixed(1)}h used)`;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const seededMap = new Map();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>seededPto.forEach(p =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>seededMap.set(p.date, p);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const suggestedMap = new Map();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>suggestedPto.forEach(p =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>suggestedMap.set(p.date, p);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function qualityToClass(q) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const qL = q.toLowerCase();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (qL.includes("excellent")) return "excellent";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (qL.includes("very")) return "very-good";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (qL.includes("good")) return "good";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return "fair";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function renderCalendar() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const root = document.getElementById("calendarRoot");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>root.innerHTML = "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const weekdays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>monthsMeta.forEach(m =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const monthCard = document.createElement("section");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>monthCard.className = "month-card";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>monthCard.id = `month-${m.index}`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const header = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>header.className = "month-header";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const left = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const title = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>title.className = "month-title";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>title.textContent = m.name.toUpperCase();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>left.appendChild(title);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const sub = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>sub.className = "month-subtitle";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const bal = monthBalances[m.index];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (bal) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>sub.textContent = `AL ${bal.startAL.toFixed(1)}→${bal.endAL.toFixed(1)}, SL ${bal.startSL.toFixed(2)}→${bal.endSL.toFixed(2)}`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>sub.textContent = "No usage / accrual summary";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>left.appendChild(sub);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const right = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const balPill = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>balPill.className = "balance-pill month-balance-pill";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (bal) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>balPill.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span&gt;&lt;span class="label"&gt;AL&lt;/span&gt; ${bal.startAL.toFixed(1)}→${bal.endAL.toFixed(1)}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span&gt;&lt;span class="label"&gt;SL&lt;/span&gt; ${bal.startSL.toFixed(1)}→${bal.endSL.toFixed(1)}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span&gt;&lt;span class="label"&gt;RL&lt;/span&gt; ${bal.startRL.toFixed(1)}→${bal.endRL.toFixed(1)}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>balPill.textContent = "No balances";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>right.appendChild(balPill);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>header.appendChild(left);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>header.appendChild(right);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>monthCard.appendChild(header);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const body = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body.className = "month-body";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const weekdayRow = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>weekdayRow.className = "weekday-row";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>weekdays.forEach(w =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const cell = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>cell.textContent = w;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>weekdayRow.appendChild(cell);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body.appendChild(weekdayRow);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const daysGrid = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>daysGrid.className = "days-grid";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>for (let i = 0; i &lt; m.startWeekday; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const empty = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>empty.className = "day-cell day-empty";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>daysGrid.appendChild(empty);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const year = 2026;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>for (let day = 1; day &lt;= m.days; day++) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const cell = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>cell.className = "day-cell";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const dayHeaderLine = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>dayHeaderLine.className = "day-header-line";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const num = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>num.className = "day-number";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>num.textContent = day.toString();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const dot = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>dot.className = "day-dot";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>dayHeaderLine.appendChild(num);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>dayHeaderLine.appendChild(dot);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const ptoRow = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>ptoRow.style.display = "flex";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>ptoRow.style.gap = "0.2rem";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>ptoRow.style.flexWrap = "wrap";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const footer = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>footer.className = "day-footer";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const tempChipContainer = document.createElement("div");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const dateObj = new Date(year, m.index, day);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const iso = dateObj.toISOString().slice(0,10);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const seeded = seededMap.get(iso);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const suggested = suggestedMap.get(iso);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (seeded) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.classList.add("day-booked");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const pill = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pill.className = "day-pto-pill";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pill.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="type"&gt;${seeded.type}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="meta"&gt;${seeded.hours}h&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ptoRow.appendChild(pill);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (suggested) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.classList.add("day-suggested");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const pill = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pill.className = "day-pto-pill suggested suggested-pill";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pill.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="type"&gt;${suggested.type}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="meta"&gt;${suggested.hours}h (suggested)&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ptoRow.appendChild(pill);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const w = getWeatherForDate(iso);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (w) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const chip = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>chip.className = "temps-chip temps-chip-day";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>chip.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="label"&gt;TC&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="hi"&gt;&lt;span class="symbol"&gt;⬆️&lt;/span&gt;${w.hi}°F&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="lo"&gt;&lt;span class="symbol"&gt;⬇️&lt;/span&gt;${w.lo}°F&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="water"&gt;&lt;span class="symbol"&gt;🌊&lt;/span&gt;${w.water}°F&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>tempChipContainer.appendChild(chip);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>cell.appendChild(dayHeaderLine);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (ptoRow.children.length) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.appendChild(ptoRow);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (tempChipContainer.children.length) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>footer.appendChild(tempChipContainer);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>footer.appendChild(document.createElement("div"));</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>footer.appendChild(document.createElement("div"));</p>
-<p class="p1"><span class="Apple-converted-space">          </span>cell.appendChild(footer);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>daysGrid.appendChild(cell);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>body.appendChild(daysGrid);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>monthCard.appendChild(body);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>root.appendChild(monthCard);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>renderCalendar();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const togglePtoBtn = document.getElementById("togglePtoBtn");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const toggleSugBtn = document.getElementById("toggleSugBtn");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const toggleTempBtn = document.getElementById("toggleTempBtn");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const toggleBalBtn = document.getElementById("toggleBalBtn");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const scrollTodayBtn = document.getElementById("scrollTodayBtn");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function toggleClassOn(selector, cls, state) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.querySelectorAll(selector).forEach(el =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (state) el.classList.add(cls);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>else el.classList.remove(cls);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let showPto = true;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let showSuggested = true;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let showTemps = true;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let showBalances = true;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>togglePtoBtn.addEventListener("click", () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showPto = !showPto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>togglePtoBtn.classList.toggle("btn-toggle-on", showPto);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.querySelectorAll(".day-pto-pill").forEach(el =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (!el.classList.contains("suggested") || showSuggested) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>el.style.display = showPto ? "inline-flex" : "none";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>toggleSugBtn.addEventListener("click", () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showSuggested = !showSuggested;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>toggleSugBtn.classList.toggle("btn-toggle-on", showSuggested);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.querySelectorAll(".day-pto-pill.suggested").forEach(el =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>el.style.display = (showPto &amp;&amp; showSuggested) ? "inline-flex" : "none";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>toggleTempBtn.addEventListener("click", () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showTemps = !showTemps;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>toggleTempBtn.classList.toggle("btn-toggle-on", showTemps);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.querySelectorAll(".temps-chip-day").forEach(el =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>el.style.display = showTemps ? "inline-flex" : "none";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>toggleBalBtn.addEventListener("click", () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showBalances = !showBalances;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>toggleBalBtn.classList.toggle("btn-toggle-on", showBalances);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.querySelectorAll(".month-balance-pill").forEach(el =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>el.style.display = showBalances ? "inline-flex" : "none";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>scrollTodayBtn.addEventListener("click", () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const julyCard = document.getElementById("month-6");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (julyCard) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>julyCard.scrollIntoView({ behavior: "smooth", block: "start" });</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <div class="app-shell">
+    <main class="card">
+      <div class="card-header">
+        <div class="card-header-main">
+          <div class="pill pill-strong">
+            <span class="pill-dot"></span>
+            2026 PTO &amp; BOATING CALENDAR
+          </div>
+          <h1>2026 PTO Calendar &amp; Traverse City Weeks</h1>
+          <p class="muted">
+            Seeded PTO, suggested boating weeks, monthly balances, and weekly ⬆️/⬇️ temps with 🌊 water temps for Traverse City.
+          </p>
+        </div>
+        <div class="muted-strong" style="text-align:right;">
+          <div>Traverse City, MI focus • May–Oct weather bands</div>
+          <div style="font-size:0.7rem; color:var(--muted);">
+            Air highs/lows and water are typical weekly averages.
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-bar">
+        <button class="btn btn-secondary btn-toggle-on" id="togglePtoBtn">
+          <span class="icon">🧾</span><span>PTO details</span>
+        </button>
+        <button class="btn btn-secondary btn-toggle-on" id="toggleSugBtn">
+          <span class="icon">✨</span><span>Suggested days</span>
+        </button>
+        <button class="btn btn-secondary btn-toggle-on" id="toggleTempBtn">
+          <span class="icon">🌡️</span><span>Week temps</span>
+        </button>
+        <button class="btn btn-secondary btn-toggle-on" id="toggleBalBtn">
+          <span class="icon">📊</span><span>Monthly balances</span>
+        </button>
+        <button class="btn btn-primary" id="scrollTodayBtn">
+          <span class="icon">📅</span><span>Jump to July (prime)</span>
+        </button>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-swatch swatch-booked"></div>
+          <span>Booked PTO (seeded) – AL 1.3–8h</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch swatch-suggested"></div>
+          <span>Suggested PTO – boating‑optimized</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch swatch-weather"></div>
+          <span>Weekly ⬆️ high / ⬇️ low / 🌊 water &amp; quality</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch swatch-balance"></div>
+          <span>Monthly AL / SL / RL balance band</span>
+        </div>
+      </div>
+
+      <div class="calendar-grid" id="calendarRoot">
+        <!-- Months injected by JS -->
+      </div>
+    </main>
+
+    <aside class="side-panel">
+      <section class="card">
+        <div class="card-header">
+          <div class="card-header-main">
+            <div class="pill">
+              <span class="pill-dot"></span>
+              CURRENT BALANCES SNAPSHOT
+            </div>
+            <h2 style="font-size:1rem;">2026 Leave Balances</h2>
+          </div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-label">Annual Leave (AL)</div>
+            <div class="metric-value">125.2 h</div>
+            <div class="metric-sub">End of year balance (Dec 18)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Sick Leave (SL)</div>
+            <div class="metric-value">158.25 h</div>
+            <div class="metric-sub">No seeded SL usage in 2026</div>
+          </div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-label">Reward Leave (RL)</div>
+            <div class="metric-value">24.0 h</div>
+            <div class="metric-sub">Fixed, no accrual or usage planned</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">AL low point</div>
+            <div class="metric-value">53.2 h</div>
+            <div class="metric-sub">Late August before Sep accrual</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <p class="hint">
+          This view uses your 2026 paystub‑based balances and seeded PTO as of 12/18/26. Use the toggles to focus on PTO, suggested boating weeks, or temps.
+        </p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div class="card-header-main">
+            <div class="pill">
+              <span class="pill-dot"></span>
+              PRIME BOATING WINDOWS
+            </div>
+            <h2 style="font-size:1rem;">Top Weather Weeks (Traverse City)</h2>
+          </div>
+        </div>
+        <div class="week-weather-list">
+          <!-- Highlight a few prime/shoulder weeks -->
+          <div class="week-weather-row">
+            <div class="week-weather-label">
+              <div class="week-weather-title">Week 9 – July 1–7</div>
+              <div class="week-weather-dates">Peak summer heat, great water temps.</div>
+            </div>
+            <div class="week-weather-temps">
+              <span class="badge excellent">
+                <span>⬆️ 81°F</span><span>⬇️ 58°F</span>
+              </span>
+              <span class="badge excellent">
+                <span>🌊 69°F</span><span>Excellent</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="week-weather-row">
+            <div class="week-weather-label">
+              <div class="week-weather-title">Week 10 – July 8–14</div>
+              <div class="week-weather-dates">Highest air temps of the year.</div>
+            </div>
+            <div class="week-weather-temps">
+              <span class="badge excellent">
+                <span>⬆️ 82°F</span><span>⬇️ 59°F</span>
+              </span>
+              <span class="badge excellent">
+                <span>🌊 71°F</span><span>Excellent</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="week-weather-row">
+            <div class="week-weather-label">
+              <div class="week-weather-title">Week 11 – July 15–21</div>
+              <div class="week-weather-dates">Lake at warmest (~72°F).</div>
+            </div>
+            <div class="week-weather-temps">
+              <span class="badge excellent">
+                <span>⬆️ 82°F</span><span>⬇️ 59°F</span>
+              </span>
+              <span class="badge excellent">
+                <span>🌊 72°F</span><span>Excellent</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="week-weather-row">
+            <div class="week-weather-label">
+              <div class="week-weather-title">Week 13 – Aug 1–7</div>
+              <div class="week-weather-dates">Early August still hot, perfect swimming.</div>
+            </div>
+            <div class="week-weather-temps">
+              <span class="badge excellent">
+                <span>⬆️ 79°F</span><span>⬇️ 58°F</span>
+              </span>
+              <span class="badge excellent">
+                <span>🌊 70°F</span><span>Excellent</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="week-weather-row">
+            <div class="week-weather-label">
+              <div class="week-weather-title">Week 17 – Sept 1–7</div>
+              <div class="week-weather-dates">Bonus summer, water still warm.</div>
+            </div>
+            <div class="week-weather-temps">
+              <span class="badge very-good">
+                <span>⬆️ 74°F</span><span>⬇️ 53°F</span>
+              </span>
+              <span class="badge very-good">
+                <span>🌊 66°F</span><span>Very Good</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <p class="hint">
+          Bluer chips = better boating conditions. Use this panel to pick between July peak, August warmth, and September shoulder weeks.
+        </p>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    // Months meta
+    const monthsMeta = [
+      { name: "January", index: 0, days: 31, startWeekday: 4 },   // Jan 1, 2026 is Thursday
+      { name: "February", index: 1, days: 28, startWeekday: 0 }, // Sunday
+      { name: "March", index: 2, days: 31, startWeekday: 0 },    // Sunday
+      { name: "April", index: 3, days: 30, startWeekday: 3 },    // Wednesday
+      { name: "May", index: 4, days: 31, startWeekday: 5 },      // Friday
+      { name: "June", index: 5, days: 30, startWeekday: 1 },     // Monday
+      { name: "July", index: 6, days: 31, startWeekday: 3 },     // Wednesday
+      { name: "August", index: 7, days: 31, startWeekday: 6 },   // Saturday
+      { name: "September", index: 8, days: 30, startWeekday: 2 },// Tuesday
+      { name: "October", index: 9, days: 31, startWeekday: 4 },  // Thursday
+      { name: "November", index: 10, days: 30, startWeekday: 0 },// Sunday
+      { name: "December", index: 11, days: 31, startWeekday: 2 } // Tuesday
+    ];
+
+    // Calendar View Key monthly balances (AL/SL/RL) from Excel
+    const monthBalances = {
+      0: { startAL: 80.5, endAL: 80.5, usedAL: 0.0, startSL: 58.25, endSL: 58.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      1: { startAL: 80.5, endAL: 85.2, usedAL: 1.3, startSL: 58.25, endSL: 62.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      2: { startAL: 85.2, endAL: 97.2, usedAL: 0.0, startSL: 62.25, endSL: 70.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      3: { startAL: 97.2, endAL: 77.2, usedAL: 32.0, startSL: 70.25, endSL: 78.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      4: { startAL: 77.2, endAL: 89.2, usedAL: 0.0, startSL: 78.25, endSL: 86.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      5: { startAL: 89.2, endAL: 93.2, usedAL: 8.0, startSL: 86.25, endSL: 94.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      6: { startAL: 93.2, endAL: 57.2, usedAL: 48.0, startSL: 94.25, endSL: 102.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      7: { startAL: 57.2, endAL: 53.2, usedAL: 16.0, startSL: 102.25, endSL: 110.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      8: { startAL: 53.2, endAL: 65.2, usedAL: 0.0, startSL: 110.25, endSL: 118.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      9: { startAL: 65.2, endAL: 77.2, usedAL: 0.0, startSL: 118.25, endSL: 126.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      10:{ startAL: 77.2, endAL: 89.2, usedAL: 0.0, startSL: 126.25, endSL: 134.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 },
+      11:{ startAL: 89.2, endAL: 101.2, usedAL: 0.0, startSL: 134.25, endSL: 142.25, usedSL: 0.0, startRL: 24.0, endRL: 24.0, usedRL: 0.0 }
+    };
+
+    // Seeded PTO dates (existing AL) from Seed Leave Dates sheet
+    const seededPto = [
+      { date: "2026-02-09", type: "AL", hours: 1.3 },
+      { date: "2026-04-02", type: "AL", hours: 8.0 },
+      { date: "2026-04-03", type: "AL", hours: 8.0 },
+      { date: "2026-04-06", type: "AL", hours: 8.0 },
+      { date: "2026-04-07", type: "AL", hours: 8.0 },
+      { date: "2026-06-29", type: "AL", hours: 8.0 },
+      { date: "2026-07-06", type: "AL", hours: 8.0 },
+      { date: "2026-07-07", type: "AL", hours: 8.0 },
+      { date: "2026-07-08", type: "AL", hours: 8.0 },
+      { date: "2026-07-09", type: "AL", hours: 8.0 },
+      { date: "2026-07-10", type: "AL", hours: 8.0 },
+      { date: "2026-07-17", type: "AL", hours: 8.0 },
+      { date: "2026-08-14", type: "AL", hours: 8.0 },
+      { date: "2026-08-28", type: "AL", hours: 8.0 }
+    ];
+
+    // Suggested PTO from Suggested Days OFF (only those that are explicit date blocks)
+    const suggestedPto = [
+      // Rank 1 – Mon 7/20–Fri 7/24
+      { date: "2026-07-20", type: "AL", hours: 8.0 },
+      { date: "2026-07-21", type: "AL", hours: 8.0 },
+      { date: "2026-07-22", type: "AL", hours: 8.0 },
+      { date: "2026-07-23", type: "AL", hours: 8.0 },
+      { date: "2026-07-24", type: "AL", hours: 8.0 },
+      // Rank 4 – Mon 8/3–Fri 8/7
+      { date: "2026-08-03", type: "AL", hours: 8.0 },
+      { date: "2026-08-04", type: "AL", hours: 8.0 },
+      { date: "2026-08-05", type: "AL", hours: 8.0 },
+      { date: "2026-08-06", type: "AL", hours: 8.0 },
+      { date: "2026-08-07", type: "AL", hours: 8.0 },
+      // Rank 5 – Mon 8/10–Fri 8/14 (note: 8/14 seeded)
+      { date: "2026-08-10", type: "AL", hours: 8.0 },
+      { date: "2026-08-11", type: "AL", hours: 8.0 },
+      { date: "2026-08-12", type: "AL", hours: 8.0 },
+      { date: "2026-08-13", type: "AL", hours: 8.0 },
+      // Rank 6 – Mon 6/15–Fri 6/19
+      { date: "2026-06-15", type: "AL", hours: 8.0 },
+      { date: "2026-06-16", type: "AL", hours: 8.0 },
+      { date: "2026-06-17", type: "AL", hours: 8.0 },
+      { date: "2026-06-18", type: "AL", hours: 8.0 },
+      { date: "2026-06-19", type: "AL", hours: 8.0 },
+      // Rank 8 – optional Fri 6/26 and Tue 6/30
+      { date: "2026-06-26", type: "AL", hours: 8.0 },
+      { date: "2026-06-30", type: "AL", hours: 8.0 },
+      // Rank 9 – Mon 8/17–Fri 8/21
+      { date: "2026-08-17", type: "AL", hours: 8.0 },
+      { date: "2026-08-18", type: "AL", hours: 8.0 },
+      { date: "2026-08-19", type: "AL", hours: 8.0 },
+      { date: "2026-08-20", type: "AL", hours: 8.0 },
+      { date: "2026-08-21", type: "AL", hours: 8.0 },
+      // Rank 10 – assume full week after Labor Day: Mon 9/7–Fri 9/11
+      { date: "2026-09-07", type: "AL", hours: 8.0 },
+      { date: "2026-09-08", type: "AL", hours: 8.0 },
+      { date: "2026-09-09", type: "AL", hours: 8.0 },
+      { date: "2026-09-10", type: "AL", hours: 8.0 },
+      { date: "2026-09-11", type: "AL", hours: 8.0 },
+      // Rank 11 – Wed 8/26–Fri 8/28
+      { date: "2026-08-26", type: "AL", hours: 8.0 },
+      { date: "2026-08-27", type: "AL", hours: 8.0 },
+      // 12 – Fri 9/11 already covered in Rank 10 range
+      // 13 – Mon 6/8–Fri 6/12
+      { date: "2026-06-08", type: "AL", hours: 8.0 },
+      { date: "2026-06-09", type: "AL", hours: 8.0 },
+      { date: "2026-06-10", type: "AL", hours: 8.0 },
+      { date: "2026-06-11", type: "AL", hours: 8.0 },
+      { date: "2026-06-12", type: "AL", hours: 8.0 }
+    ];
+
+    // Weather weeks May–Oct
+    const weatherWeeks = [
+      { week: 1,  monthRange: "May",   dates: "May 1–7",   hi: 66, lo: 43, water: 45, quality: "Fair" },
+      { week: 2,  monthRange: "May",   dates: "May 8–14",  hi: 67, lo: 44, water: 48, quality: "Fair" },
+      { week: 3,  monthRange: "May",   dates: "May 15–21", hi: 68, lo: 44, water: 52, quality: "Good" },
+      { week: 4,  monthRange: "May",   dates: "May 22–31", hi: 70, lo: 46, water: 55, quality: "Good" },
+      { week: 5,  monthRange: "June",  dates: "Jun 1–7",   hi: 74, lo: 50, water: 58, quality: "Very Good" },
+      { week: 6,  monthRange: "June",  dates: "Jun 8–14",  hi: 76, lo: 52, water: 61, quality: "Very Good" },
+      { week: 7,  monthRange: "June",  dates: "Jun 15–21", hi: 77, lo: 53, water: 64, quality: "Excellent" },
+      { week: 8,  monthRange: "June",  dates: "Jun 22–30", hi: 76, lo: 53, water: 67, quality: "Excellent" },
+      { week: 9,  monthRange: "July",  dates: "Jul 1–7",   hi: 81, lo: 58, water: 69, quality: "Excellent" },
+      { week: 10, monthRange: "July",  dates: "Jul 8–14",  hi: 82, lo: 59, water: 71, quality: "Excellent" },
+      { week: 11, monthRange: "July",  dates: "Jul 15–21", hi: 82, lo: 59, water: 72, quality: "Excellent" },
+      { week: 12, monthRange: "July",  dates: "Jul 22–31", hi: 79, lo: 58, water: 71, quality: "Excellent" },
+      { week: 13, monthRange: "August",dates: "Aug 1–7",   hi: 79, lo: 58, water: 70, quality: "Excellent" },
+      { week: 14, monthRange: "August",dates: "Aug 8–14",  hi: 79, lo: 57, water: 71, quality: "Excellent" },
+      { week: 15, monthRange: "August",dates: "Aug 15–21", hi: 79, lo: 57, water: 69, quality: "Excellent" },
+      { week: 16, monthRange: "August",dates: "Aug 22–31", hi: 78, lo: 56, water: 67, quality: "Very Good" },
+      { week: 17, monthRange: "September",dates: "Sep 1–7", hi: 74, lo: 53, water: 66, quality: "Very Good" },
+      { week: 18, monthRange: "September",dates: "Sep 8–14", hi: 72, lo: 52, water: 65, quality: "Very Good" },
+      { week: 19, monthRange: "September",dates: "Sep 15–21",hi: 71, lo: 51, water: 64, quality: "Good" },
+      { week: 20, monthRange: "September",dates: "Sep 22–30",hi: 70, lo: 50, water: 62, quality: "Good" },
+      { week: 21, monthRange: "October",dates: "Oct 1–7",  hi: 59, lo: 42, water: 61, quality: "Fair" },
+      { week: 22, monthRange: "October",dates: "Oct 8–14", hi: 58, lo: 41, water: 57, quality: "Fair" },
+      { week: 23, monthRange: "October",dates: "Oct 15–21",hi: 57, lo: 40, water: 56, quality: "Fair" },
+      { week: 24, monthRange: "October",dates: "Oct 22–31",hi: 55, lo: 40, water: 53, quality: "Fair" }
+    ];
+
+    // Map each calendar date to which weather week applies (approx)
+    function getWeatherForDate(dateStr) {
+      const d = new Date(dateStr);
+      const month = d.getMonth();
+      const day = d.getDate();
+
+      // Only May–Oct have weather rows
+      if (month < 4 || month > 9) return null;
+
+      const label = (month === 4) ? "May"
+                   : (month === 5) ? "June"
+                   : (month === 6) ? "July"
+                   : (month === 7) ? "August"
+                   : (month === 8) ? "September"
+                   : "October";
+
+      // approximate mapping within each month by day ranges
+      let weekCandidates = weatherWeeks.filter(w => w.monthRange === label);
+      if (!weekCandidates.length) return null;
+
+      // pick by day
+      if (label === "May") {
+        if (day <= 7)      return weekCandidates[0];
+        if (day <= 14)     return weekCandidates[1];
+        if (day <= 21)     return weekCandidates[2];
+        return weekCandidates[3];
+      } else if (label === "June") {
+        if (day <= 7)      return weekCandidates[0];
+        if (day <= 14)     return weekCandidates[1];
+        if (day <= 21)     return weekCandidates[2];
+        return weekCandidates[3];
+      } else if (label === "July") {
+        if (day <= 7)      return weekCandidates[0];
+        if (day <= 14)     return weekCandidates[1];
+        if (day <= 21)     return weekCandidates[2];
+        return weekCandidates[3];
+      } else if (label === "August") {
+        if (day <= 7)      return weekCandidates[0];
+        if (day <= 14)     return weekCandidates[1];
+        if (day <= 21)     return weekCandidates[2];
+        return weekCandidates[3];
+      } else if (label === "September") {
+        if (day <= 7)      return weekCandidates[0];
+        if (day <= 14)     return weekCandidates[1];
+        if (day <= 21)     return weekCandidates[2];
+        return weekCandidates[3];
+      } else if (label === "October") {
+        if (day <= 7)      return weekCandidates[0];
+        if (day <= 14)     return weekCandidates[1];
+        if (day <= 21)     return weekCandidates[2];
+        return weekCandidates[3];
+      }
+      return null;
+    }
+
+    function formatBalShort(bal) {
+      if (!bal) return "";
+      const { startAL, endAL, usedAL } = bal;
+      return `AL ${startAL.toFixed(1)}→${endAL.toFixed(1)} (${usedAL.toFixed(1)}h used)`;
+    }
+
+    const seededMap = new Map();
+    seededPto.forEach(p => {
+      seededMap.set(p.date, p);
+    });
+
+    const suggestedMap = new Map();
+    suggestedPto.forEach(p => {
+      suggestedMap.set(p.date, p);
+    });
+
+    function qualityToClass(q) {
+      const qL = q.toLowerCase();
+      if (qL.includes("excellent")) return "excellent";
+      if (qL.includes("very")) return "very-good";
+      if (qL.includes("good")) return "good";
+      return "fair";
+    }
+
+    function renderCalendar() {
+      const root = document.getElementById("calendarRoot");
+      root.innerHTML = "";
+
+      const weekdays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+      monthsMeta.forEach(m => {
+        const monthCard = document.createElement("section");
+        monthCard.className = "month-card";
+        monthCard.id = `month-${m.index}`;
+
+        const header = document.createElement("div");
+        header.className = "month-header";
+
+        const left = document.createElement("div");
+        const title = document.createElement("div");
+        title.className = "month-title";
+        title.textContent = m.name.toUpperCase();
+        left.appendChild(title);
+
+        const sub = document.createElement("div");
+        sub.className = "month-subtitle";
+
+        const bal = monthBalances[m.index];
+        if (bal) {
+          sub.textContent = `AL ${bal.startAL.toFixed(1)}→${bal.endAL.toFixed(1)}, SL ${bal.startSL.toFixed(2)}→${bal.endSL.toFixed(2)}`;
+        } else {
+          sub.textContent = "No usage / accrual summary";
+        }
+        left.appendChild(sub);
+
+        const right = document.createElement("div");
+        const balPill = document.createElement("div");
+        balPill.className = "balance-pill month-balance-pill";
+        if (bal) {
+          balPill.innerHTML = `
+            <span><span class="label">AL</span> ${bal.startAL.toFixed(1)}→${bal.endAL.toFixed(1)}</span>
+            <span><span class="label">SL</span> ${bal.startSL.toFixed(1)}→${bal.endSL.toFixed(1)}</span>
+            <span><span class="label">RL</span> ${bal.startRL.toFixed(1)}→${bal.endRL.toFixed(1)}</span>
+          `;
+        } else {
+          balPill.textContent = "No balances";
+        }
+        right.appendChild(balPill);
+
+        header.appendChild(left);
+        header.appendChild(right);
+        monthCard.appendChild(header);
+
+        const body = document.createElement("div");
+        body.className = "month-body";
+
+        const weekdayRow = document.createElement("div");
+        weekdayRow.className = "weekday-row";
+        weekdays.forEach(w => {
+          const cell = document.createElement("div");
+          cell.textContent = w;
+          weekdayRow.appendChild(cell);
+        });
+        body.appendChild(weekdayRow);
+
+        const daysGrid = document.createElement("div");
+        daysGrid.className = "days-grid";
+
+        for (let i = 0; i < m.startWeekday; i++) {
+          const empty = document.createElement("div");
+          empty.className = "day-cell day-empty";
+          daysGrid.appendChild(empty);
+        }
+
+        const year = 2026;
+        for (let day = 1; day <= m.days; day++) {
+          const cell = document.createElement("div");
+          cell.className = "day-cell";
+
+          const dayHeaderLine = document.createElement("div");
+          dayHeaderLine.className = "day-header-line";
+
+          const num = document.createElement("div");
+          num.className = "day-number";
+          num.textContent = day.toString();
+
+          const dot = document.createElement("div");
+          dot.className = "day-dot";
+
+          dayHeaderLine.appendChild(num);
+          dayHeaderLine.appendChild(dot);
+
+          const ptoRow = document.createElement("div");
+          ptoRow.style.display = "flex";
+          ptoRow.style.gap = "0.2rem";
+          ptoRow.style.flexWrap = "wrap";
+
+          const footer = document.createElement("div");
+          footer.className = "day-footer";
+
+          const tempChipContainer = document.createElement("div");
+
+          const dateObj = new Date(year, m.index, day);
+          const iso = dateObj.toISOString().slice(0,10);
+
+          const seeded = seededMap.get(iso);
+          const suggested = suggestedMap.get(iso);
+
+          if (seeded) {
+            cell.classList.add("day-booked");
+            const pill = document.createElement("div");
+            pill.className = "day-pto-pill";
+            pill.innerHTML = `
+              <span class="type">${seeded.type}</span>
+              <span class="meta">${seeded.hours}h</span>
+            `;
+            ptoRow.appendChild(pill);
+          }
+
+          if (suggested) {
+            cell.classList.add("day-suggested");
+            const pill = document.createElement("div");
+            pill.className = "day-pto-pill suggested suggested-pill";
+            pill.innerHTML = `
+              <span class="type">${suggested.type}</span>
+              <span class="meta">${suggested.hours}h (suggested)</span>
+            `;
+            ptoRow.appendChild(pill);
+          }
+
+          const w = getWeatherForDate(iso);
+          if (w) {
+            const chip = document.createElement("div");
+            chip.className = "temps-chip temps-chip-day";
+            chip.innerHTML = `
+              <span class="label">TC</span>
+              <span class="hi"><span class="symbol">⬆️</span>${w.hi}°F</span>
+              <span class="lo"><span class="symbol">⬇️</span>${w.lo}°F</span>
+              <span class="water"><span class="symbol">🌊</span>${w.water}°F</span>
+            `;
+            tempChipContainer.appendChild(chip);
+          }
+
+          cell.appendChild(dayHeaderLine);
+          if (ptoRow.children.length) {
+            cell.appendChild(ptoRow);
+          }
+          if (tempChipContainer.children.length) {
+            footer.appendChild(tempChipContainer);
+          } else {
+            footer.appendChild(document.createElement("div"));
+          }
+          footer.appendChild(document.createElement("div"));
+          cell.appendChild(footer);
+
+          daysGrid.appendChild(cell);
+        }
+
+        body.appendChild(daysGrid);
+        monthCard.appendChild(body);
+
+        root.appendChild(monthCard);
+      });
+    }
+
+    renderCalendar();
+
+    const togglePtoBtn = document.getElementById("togglePtoBtn");
+    const toggleSugBtn = document.getElementById("toggleSugBtn");
+    const toggleTempBtn = document.getElementById("toggleTempBtn");
+    const toggleBalBtn = document.getElementById("toggleBalBtn");
+    const scrollTodayBtn = document.getElementById("scrollTodayBtn");
+
+    function toggleClassOn(selector, cls, state) {
+      document.querySelectorAll(selector).forEach(el => {
+        if (state) el.classList.add(cls);
+        else el.classList.remove(cls);
+      });
+    }
+
+    let showPto = true;
+    let showSuggested = true;
+    let showTemps = true;
+    let showBalances = true;
+
+    togglePtoBtn.addEventListener("click", () => {
+      showPto = !showPto;
+      togglePtoBtn.classList.toggle("btn-toggle-on", showPto);
+      document.querySelectorAll(".day-pto-pill").forEach(el => {
+        if (!el.classList.contains("suggested") || showSuggested) {
+          el.style.display = showPto ? "inline-flex" : "none";
+        }
+      });
+    });
+
+    toggleSugBtn.addEventListener("click", () => {
+      showSuggested = !showSuggested;
+      toggleSugBtn.classList.toggle("btn-toggle-on", showSuggested);
+      document.querySelectorAll(".day-pto-pill.suggested").forEach(el => {
+        el.style.display = (showPto && showSuggested) ? "inline-flex" : "none";
+      });
+    });
+
+    toggleTempBtn.addEventListener("click", () => {
+      showTemps = !showTemps;
+      toggleTempBtn.classList.toggle("btn-toggle-on", showTemps);
+      document.querySelectorAll(".temps-chip-day").forEach(el => {
+        el.style.display = showTemps ? "inline-flex" : "none";
+      });
+    });
+
+    toggleBalBtn.addEventListener("click", () => {
+      showBalances = !showBalances;
+      toggleBalBtn.classList.toggle("btn-toggle-on", showBalances);
+      document.querySelectorAll(".month-balance-pill").forEach(el => {
+        el.style.display = showBalances ? "inline-flex" : "none";
+      });
+    });
+
+    scrollTodayBtn.addEventListener("click", () => {
+      const julyCard = document.getElementById("month-6");
+      if (julyCard) {
+        julyCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  </script>
 </body>
 </html>
